@@ -1,0 +1,17 @@
+﻿extends layout
+
+block content
+    h1= title
+    h1= autorized
+    //p Fill in the form below to sign up
+    include messages
+
+    form(action='/login' method='post')
+        div(class="form-group")
+            label(for="InputEmail") Email address
+            input(type="email", class="form-control", id="InputEmail", aria-describedby="emailHelp", placeholder="Enter email", name='user[mail]')
+            small(id="emailHelp" class="form-text text-muted") We'll never share your email with anyone else.
+        div(class="form-group")
+            label(for="InputPassword") Password
+            input(type="password" class="form-control" id="InputPassword" placeholder="Password" name='user[pass]')
+        button(type="submit" class="btn btn-primary") Login

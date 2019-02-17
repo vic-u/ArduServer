@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-web-app2",
+  "version": "0.0.0",
+  "description": "NodejsWebApp2",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.2.1",
+    "bootstrap-toggle": "^2.2.2",
+    "cookie-parser": "^1.4.3",
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "jquery": "^3.3.1",
+    "mdbootstrap": "^4.7.0",
+    "pug": "^2.0.3",
+    "sqlite3": "^4.0.6"
+  }
+}

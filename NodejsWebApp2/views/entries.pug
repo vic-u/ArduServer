@@ -1,0 +1,30 @@
+﻿extends layout
+
+block content
+    h1= title
+    //p Fill in the form below to sign up
+    include messages
+    form(action='/entries' method='post')
+        label(class='checkbox-inline')
+            <input name="sensor" type="checkbox" #{check} onchange="this.form.submit()" data-toggle="toggle" data-size="large" data-on="<i class='fa fa-play'></i> Sensor on" data-off="<i class='fa fa-stop'></i> Sensor off" data-onstyle="success" data-offstyle="danger">Sensor Switch
+    <canvas id="lineChart"></canvas>
+    script(src="/js/chart.js")
+    <script>drawchart(#{dataset})</script>
+    //    drawchart()
+    table(class='table')
+        thead
+            tr
+                th(scope='col') #
+                th(scope='col') MAC
+                th(scope='col') TIME
+                th(scope='col') NAME
+                th(scope='col') DATA
+        tbody
+        each entry in entries.length ? entries : ['There are no values']
+            tr
+                td(scope='row') #{entry.id}
+                td #{entry.mac}
+                td #{entry.timestamp}
+                td #{entry.name}
+                td #{entry.value} 
+                

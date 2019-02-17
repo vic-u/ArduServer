@@ -1,0 +1,28 @@
+﻿if (authorized)
+    div
+        nav(class='navbar navbar-expand-md navbar-dark bg-dark')
+            a(class="navbar-brand",href="#") 
+                <img src="/images/avg.png" width="30" height="30" class="d-inline-block align-top" alt="">AVG
+            //button(class="navbar-toggler collapsed",type="button",data-toggle="collapse",data-target="#navbar1",aria-controls="navbar1",aria-expanded="true", aria-label="Toggle navigation")
+            button(class="navbar-toggler",data-toggle="collapse",data-target="#navbar1")
+                span(class="navbar-toggler-icon")
+            div(class="navbar-collapse collapse",id="navbar1", style)
+                ul(class="navbar-nav mr-auto")
+                    li(class="nav-item active")
+                        <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
+                    li(class="nav-item")
+                        a(class="nav-link" href="/register") Profile
+else
+    div
+        nav(class='navbar navbar-expand-md navbar-dark bg-dark')
+            a(class="navbar-brand",href="#") 
+                <img src="/images/avg.png" width="30" height="30" class="d-inline-block align-top" alt="">AVG
+            //button(class="navbar-toggler collapsed",type="button",data-toggle="collapse",data-target="#navbar1",aria-controls="navbar1",aria-expanded="true", aria-label="Toggle navigation")
+            button(class="navbar-toggler",data-toggle="collapse",data-target="#navbar1")
+                span(class="navbar-toggler-icon")
+            div(class="navbar-collapse collapse",id="navbar1", style)
+                ul(class="navbar-nav mr-auto")
+                    li(class="nav-item active")
+                        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+                    li(class="nav-item")
+                        a(class="nav-link" href="/register") Register

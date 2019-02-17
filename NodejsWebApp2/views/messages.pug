@@ -1,0 +1,5 @@
+﻿if locals.messages
+    each message in messages
+        div(class='alert alert-info', role='alert')
+            p(class=message.type) #{message.string}
+        - removeMessages();
