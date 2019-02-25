@@ -9,7 +9,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "bootstrap-toggle": "^2.2.2",
     "cookie-parser": "^1.4.3",
     "debug": "^4.1.1",
