@@ -17,7 +17,7 @@ db.serialize(() => {
     //db.run(`DROP TABLE IF EXISTS ${cmdtbl}`, err => {
     //    if (err) console.log('db.serialize err: ' + err);
     //});
-    sql = `CREATE TABLE IF NOT EXISTS ${cmdtbl} (id integer primary key, mac, name, value, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)`;
+    sql = `CREATE TABLE IF NOT EXISTS ${cmdtbl} (id integer primary key, mac, name, turn, temp, delta, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)`;
     db.run(sql, err => {
         if(err) console.log('db.serialize err: ' + err);
     });
@@ -82,8 +82,13 @@ class DBSensor {
         db.get(`SELECT * FROM ${cmdtbl} WHERE mac = ? ORDER BY id DESC LIMIT 1;`, mac, cb);
     }
     static setCommand(data, cb) {
-        const sql = `INSERT INTO ${cmdtbl}( mac, name, value) VALUES (?,?,?)`;
-        db.run(sql, data.mac, data.name, data.value);
+        if (data.turn === '') {
+            console.log('setCommand: ' + data.turn);
+            
+            return cb();
+        }
+        const sql = `INSERT INTO ${cmdtbl}( mac, name, turn, temp, delta) VALUES (?,?,?,?,?)`;
+        db.run(sql, data.mac, data.name, data.turn, data.temp, data.delta, cb);
     }
 }
 class DBUser {

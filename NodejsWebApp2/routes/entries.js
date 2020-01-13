@@ -13,8 +13,14 @@ exports.form = (req, res) => {
                 const mac = user.mac;
                 DBSensor.getLastCommand(mac, (err, entries) => {
                     if (err) return next(err);
-                    var ss = 'OFF';
-                    if (entries !== undefined && entries.value === 'ON') ss = 'ON';
+                    var turn = 'OFF';
+                    var temp = '25';
+                    var delta = '2';
+                    if (entries !== undefined) {
+                        if (entries.turn === 'ON') turn = 'ON';
+                        temp = entries.temp;
+                        delta = entries.delta;
+                    }
                     DBSensor.getSensorDataByMAC(mac, (err, entries) => {
                         if (entries === undefined) entries = [];
                     
@@ -36,7 +42,7 @@ exports.form = (req, res) => {
                         if (entries) {
 
                             res.render('entries', {
-                                title: 'Sensor data', check: (ss === 'ON') ? 'checked' : '', entries: entries, authorized: req.session.authorized,
+                                title: 'Sensor data', turn: (turn === 'ON') ? 'checked' : '', temp: temp, delta: delta, entries: entries, authorized: req.session.authorized,
                                 dataset: `{ ${label}, ${labels}, ${data} }`
                                 //dataset: `{ label: 'TEST'}`
                                 //dataset: `{ label: 'TEST', ${labels} }`

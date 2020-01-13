@@ -12,34 +12,65 @@ block content
             include messages
     div(class='row')
         div(class='col-1')
-        div(class='col-')
-            form(action='/entries' method='post')
-                label(class='checkbox-inline')
-                    <input name="sensor" type="checkbox" #{check} onchange="this.form.submit()" data-toggle="toggle" data-size="large" data-on="<i class='fa fa-play'></i> Sensor on" data-off="<i class='fa fa-stop'></i> Sensor off" data-onstyle="success" data-offstyle="danger">Sensor Switch
+            <i class="fas fa-temperature-high"></i>
+        div(class='col-10')
+            div(class='card')
+                div(class='card-body')
+                    div(class='row')
+                        div(class='col-1')
+                                <div class="custom-control custom-switch" >
+                                    <input type="checkbox" class="custom-control-input" id="o1s1" #{turn}> 
+                                    <label class="custom-control-label" for="o1s1">Sensor (ON/OFF)</label>
+                                </div>
+                        div(class='col-2')
+                            <div>
+                                <label id="o1s1tl" for="o1s1t">Temp (0-30): #{temp}</label>
+                                <input type="range" class="custom-range" min="0" max="30" value=#{temp} id="o1s1t">
+                            </div>
+                        div(class='col-1')
+                            <div>
+                                <label id="o1s1dl" for="o1s1d">Delta (1-5): #{delta} </label>
+                                <input type="range" class="custom-range" min="1" max="5" value=#{delta} id="o1s1d">
+                            </div>
+                    //<input type="checkbox" checked data-toggle="toggle">
+                    //form(action='/entries' method='post')
+                        label(class='checkbox-inline')
+                            <input name="sensor" type="checkbox" #{check} onchange="this.form.submit()" data-toggle="toggle" data-size="large" data-on="<i class='fa fa-play'></i> Sensor on" data-off="<i class='fa fa-stop'></i> Sensor off" data-onstyle="success" data-offstyle="danger">Sensor Switch
+        //div(class='col-')
+            div(class='well')
+                <b>0°</b><input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="25"/><b>30°</b>
+        //div(class='col-')
+            <b>1°</b><input id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="2"/><b>5°</b>
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
-            <canvas id="lineChart"></canvas>
-            script(src="/js/chart.js")
-            <script>drawchart(#{dataset})</script>
+            div(class='card')
+                div(class='card-body')
+                    <canvas id="lineChart"></canvas>
+                    script(src="/js/chart.js")
+                    <script>drawchart(#{dataset})</script>
             //    drawchart()
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
-            table(class='table')
-                thead
-                    tr
-                        th(scope='col') #
-                        th(scope='col') MAC
-                        th(scope='col') TIME
-                        th(scope='col') NAME
-                        th(scope='col') DATA
-                tbody
-                each entry in entries.length ? entries : ['There are no values']
-                    tr
-                        td(scope='row') #{entry.id}
-                        td #{entry.mac}
-                        td #{entry.timestamp}
-                        td #{entry.name}
-                        td #{entry.value} 
+            div(class='card')
+                div(class='card-body')
+                    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#detail">Detail</button>
+                    div(id="detail" class="collapse in" aria-expanded="true")
+                        table(class='table')
+                            thead
+                                tr
+                                    th(scope='col') #
+                                    th(scope='col') MAC
+                                    th(scope='col') TIME
+                                    th(scope='col') NAME
+                                    th(scope='col') DATA
+                            tbody
+                            each entry in entries.length ? entries : ['There are no values']
+                                tr
+                                    td(scope='row') #{entry.id}
+                                    td #{entry.mac}
+                                    td #{entry.timestamp}
+                                    td #{entry.name}
+                                    td #{entry.value} 
                 
