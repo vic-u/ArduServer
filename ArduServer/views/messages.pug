@@ -1,0 +1,8 @@
+﻿//отображаем сообщение об ошибке, форма встроена во все остальные формы
+//забирает все значения из locals.messages в res и выводит их в виде bs окна информации
+//TODO alert-info заменить alert message.type
+if locals.messages
+    each message in messages
+        div(class='alert alert-info', role='alert')
+            p(class=message.type) #{message.string}
+        - removeMessages();

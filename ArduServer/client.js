@@ -7,7 +7,7 @@ client.connect(80, 'ardu.damasarent.com', function () {
 
     //#" MAC_ADDRESS "\n #T1# 26.05\n #Z1# 1 \n ##
     temp = Math.random() * 28;
-    sign = (Math.random() > 0.5) ? (temp * -1) : temp;
+    sign = Math.random() > 0.5 ? temp * -1 : temp;
     sign = sign.toFixed(2);
     //const message = Buffer.from(`=${MAC_ADDRESS}=o1s1=${sign}=ON=23=3`);
     const message = Buffer.from(`=${MAC_ADDRESS}=o1s1=${sign}==23=3`);
