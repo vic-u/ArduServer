@@ -22,15 +22,11 @@ app.set('view engine', 'pug'); //будем отображать в pug
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(cookieParser());
-
-//app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 
 app.use(express.static(path.join(__dirname, 'public'))); //используем каталог статических ресурсов
-
 app.use('/js/jquery.js', express.static('node_modules/jquery/dist/jquery.js')); //подключаем jquery
-
 app.use('/css/bootstrap.css', express.static('node_modules/bootstrap/dist/css/bootstrap.css')); // подключаем bootstrap
 app.use('/js/bootstrap.js', express.static('node_modules/bootstrap/dist/js/bootstrap.js'));
 
@@ -47,9 +43,7 @@ app.use('/js/mdb.js', express.static('node_modules/mdbootstrap/js/mdb.js'));
 
 
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
-
 app.use(messages); // обработчик событий в цепочке обработчиков 
-
 app.get('/', login.form); // при начальном открытии отображаем форму логина
 
 app.get('/register', register.form); // припереходе к ссылке регистрации отображаем форму регистрации

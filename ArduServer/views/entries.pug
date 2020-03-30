@@ -60,16 +60,16 @@ block content
                         table(class='table')
                             thead
                                 tr
-                                    th(scope='col') #
-                                    th(scope='col') MAC
+                                    //th(scope='col') #
+                                    //th(scope='col') MAC
                                     th(scope='col') TIME
                                     th(scope='col') NAME
                                     th(scope='col') DATA
                             tbody
                             each entry in entries.length ? entries : ['There are no values']
                                 tr
-                                    td(scope='row') #{entry.id}
-                                    td #{entry.mac}
+                                    //td(scope='row') #{entry.id}
+                                    //td #{entry.mac}
                                     td #{entry.timestamp}
                                     td #{entry.name}
                                     td #{entry.value} 

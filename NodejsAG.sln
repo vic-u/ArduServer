@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodejsAG", "NodejsWebApp2\NodejsAG.njsproj", "{CA950FC1-720D-4ED3-8C4F-DE55A6CF9BE4}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "NodejsAG", "ArduServer\NodejsAG.njsproj", "{CA950FC1-720D-4ED3-8C4F-DE55A6CF9BE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

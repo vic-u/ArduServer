@@ -26,6 +26,8 @@ db.serialize(() => {
         if (err) console.log('db.serialize err: ' + err);
     });
     //db.run(`DELETE FROM ${usrtbl}`);
+    //db.run(`DELETE FROM ${snstbl}`);
+    //db.run(`DELETE FROM ${cmdtbl}`);
 });
 
 class DBSensor {
