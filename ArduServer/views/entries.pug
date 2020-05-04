@@ -1,4 +1,4 @@
-﻿extends layout
+extends layout
 
 block content
     div(class='row')
@@ -11,23 +11,23 @@ block content
         div(class='col-')
             include messages
     div(class='row')
-        div(class='col-1')
+        div(class='col-sm-1')
             <i class="fas fa-temperature-high"></i>
-        div(class='col-10')
+        div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='row')
-                        div(class='col-1')
+                        div(class='col-sm-4')
                                 <div class="custom-control custom-switch" >
                                     <input type="checkbox" class="custom-control-input" id="o1s1" #{turn}> 
                                     <label class="custom-control-label" for="o1s1">Sensor (ON/OFF)</label>
                                 </div>
-                        div(class='col-2')
+                        div(class='col-sm-4')
                             <div>
                                 <label id="o1s1tl" for="o1s1t">Temp (0-30): #{temp}</label>
                                 <input type="range" class="custom-range" min="0" max="30" value=#{temp} id="o1s1t">
                             </div>
-                        div(class='col-1')
+                        div(class='col-sm-4')
                             <div>
                                 <label id="o1s1dl" for="o1s1d">Delta (1-5): #{delta} </label>
                                 <input type="range" class="custom-range" min="1" max="5" value=#{delta} id="o1s1d">
@@ -60,16 +60,12 @@ block content
                         table(class='table')
                             thead
                                 tr
-                                    //th(scope='col') #
-                                    //th(scope='col') MAC
                                     th(scope='col') TIME
                                     th(scope='col') NAME
                                     th(scope='col') DATA
                             tbody
                             each entry in entries.length ? entries : ['There are no values']
                                 tr
-                                    //td(scope='row') #{entry.id}
-                                    //td #{entry.mac}
                                     td #{entry.timestamp}
                                     td #{entry.name}
                                     td #{entry.value} 

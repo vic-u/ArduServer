@@ -1,4 +1,4 @@
-﻿const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('snsrdt.sqllite');
 const snstbl = 'sensorsdata';
 const cmdtbl = 'commanddata';
@@ -60,7 +60,7 @@ class DBSensor {
         db.get(`SELECT * FROM ${snstbl} WHERE strftime('%Y-%m-%d-%H', timestamp) = ? AND mac = ?`, dt, data.mac, cb);
     }
     static getSensorDataByMAC(mac, cb) {
-        db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ?`, mac, cb);
+        db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
     }
     //static setNewData(sarr, cb) {
     //    const obj = {};
@@ -85,9 +85,8 @@ class DBSensor {
     }
     static setCommand(data, cb) {
         if (data.turn === '') {
-            console.log('setCommand: ' + data.turn);
-            
             return cb();
+            
         }
         const sql = `INSERT INTO ${cmdtbl}( mac, name, turn, temp, delta) VALUES (?,?,?,?,?)`;
         db.run(sql, data.mac, data.name, data.turn, data.temp, data.delta, cb);

@@ -1,4 +1,4 @@
-п»їconst User = require('../models/user');
+const User = require('../models/user');
 const DBSensor = require('../models/db').DBSensor;
 
 
@@ -21,6 +21,7 @@ exports.form = (req, res) => {
                         temp = entries.temp;
                         delta = entries.delta;
                     }
+                    //получаем данные по сенсору
                     DBSensor.getSensorDataByMAC(mac, (err, entries) => {
                         if (entries === undefined) entries = [];
                     
@@ -29,12 +30,14 @@ exports.form = (req, res) => {
                         var labels = 'labels:[]';
                         var data = 'data: []';
                         var label = `label: 'NO DATA'`;
-                        for (i = 0; i < entries.length; ++i) {
+                        var j = 0;
+                        for (i = entries.length - 1; i >=0 ; --i) {
                             var e = entries[i];
                             var dt = "'" + e.timestamp + "'";
-                            arr[i] = dt.toString();
-                            arr2[i] = e.value;
+                            arr[j] = dt.toString();
+                            arr2[j] = e.value;
                             label = `label: '${e.name} ${e.mac}'`;
+                            j++;
                         }
                         labels = 'labels:' + '[' + arr.toString() + ']';
                         data = 'data:' + '[' + arr2.toString() + ']';

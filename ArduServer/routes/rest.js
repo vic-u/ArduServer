@@ -1,4 +1,4 @@
-﻿const DBSensor = require('../models/db').DBSensor;
+const DBSensor = require('../models/db').DBSensor;
 const DBUser = require('../models/db').DBUser;
 const User = require('../models/user');
 
@@ -32,9 +32,9 @@ exports.entry = (req, res) => {
             });
             
         });
-        console.log('Turn is: ' + arr[4]);
+        
         DBSensor.setCommand({ mac: arr[1], name: arr[2], turn: arr[4], temp: arr[5], delta: arr[6] }, function (err, data) {
-            console.log('In CB: ' + arr[4]);
+            
             if (err) return next(err);
               
             DBSensor.getLastCommand(arr[1], (err, data) => {
@@ -42,8 +42,8 @@ exports.entry = (req, res) => {
                 r = (data !== undefined && data.turn === 'ON') ? 'ON' : 'OFF';
                 r = `=${arr[1]}=${arr[2]}==${r}=${data.temp}=${data.delta}`;
                 //res.write(r);
-                res.status(200).send(r);
-                res.end();
+                res.send(r, 200);
+                //res.end();
                 });
         });
 
@@ -73,7 +73,7 @@ exports.sensor = (req, res, next) => {
         //const data = req.body.sensor;
         var turn = 'ON';
         if (req.body.turn === 'false') turn = 'OFF';//off sensor
-        DBSensor.setCommand({ mac: user.mac, name: 'o1t1', turn: turn, temp: req.body.temp, delta: req.body.delta }, function (err, data) {
+        DBSensor.setCommand({ mac: user.mac, name: 'o1s1', turn: turn, temp: req.body.temp, delta: req.body.delta }, function (err, data) {
             if (err) return next(err);
         });
     });

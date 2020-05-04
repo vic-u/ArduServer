@@ -1,4 +1,4 @@
-﻿const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const db = require('../models/db');
 const DBUser = require('../models/db').DBUser;
 

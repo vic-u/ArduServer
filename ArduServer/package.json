@@ -1,22 +1,24 @@
 {
   "name": "ardu",
-  "version": "0.0.0",
-  "description": "Arduino Gate",
+  "version": "1.0.0",
+  "description": "",
   "main": "server.js",
-  "author": {
-    "name": ""
+  "scripts": {
+    "test": "test server"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
-    "bootstrap-toggle": "^2.2.2",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "jquery": "^3.3.1",
-    "mdbootstrap": "^4.7.0",
+    "mdbootstrap": "^4.7.1",
+    "popper.js": "^1.14.7",
     "pug": "^2.0.3",
     "sqlite3": "^4.0.6"
   }
