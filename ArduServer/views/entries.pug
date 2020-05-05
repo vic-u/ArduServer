@@ -43,9 +43,15 @@ block content
             <b>1°</b><input id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="2"/><b>5°</b>
     div(class='row')
         div(class='col-sm-1')
-        div(class='col-sm-10')
+        div(class='col-sm-10')           
             div(class='card')
                 div(class='card-body')
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-unique btn-pink btn-sm">Y</button>
+                        <button type="button" class="btn btn-unique btn-green btn-sm">M</button>
+                        <button type="button" class="btn btn-unique btn-amber btn-sm">W</button>
+                        <button type="button" class="btn btn-unique btn-red btn-sm">D</button>
+                    </div>
                     <canvas id="lineChart"></canvas>
                     script(src="/js/chart.js")
                     <script>drawchart(#{dataset})</script>
@@ -55,7 +61,7 @@ block content
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
-                    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#detail">Detail</button>
+                    <button type="button" class="btn btn-info btn-rounded" data-toggle="collapse" data-target="#detail">Detail</button>
                     div(id="detail" class="collapse in" aria-expanded="true")
                         table(class='table')
                             thead

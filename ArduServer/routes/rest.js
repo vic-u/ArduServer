@@ -1,7 +1,7 @@
 const DBSensor = require('../models/db').DBSensor;
 const DBUser = require('../models/db').DBUser;
 const User = require('../models/user');
-
+//rest, который вызывает сенсор, чтобы передать текущие данные и забрать текущие команды
 exports.entry = (req, res) => {
     const data = req.params.dt;
     console.log('Fetching:', data);
@@ -50,6 +50,7 @@ exports.entry = (req, res) => {
     });
    
 };
+//rest. который вызывается при изменении настроек в клиенте для температуры и дельты 
 exports.sensor = (req, res, next) => {
     if (req.session.authorized !== true) return;
     //const data = req.body.user;
