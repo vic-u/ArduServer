@@ -1,6 +1,7 @@
 extends layout
 
 block content
+    script(src="/js/chart.js")
     div(class='row')
         div(class='col-1')
         div(class='col-')
@@ -47,14 +48,13 @@ block content
             div(class='card')
                 div(class='card-body')
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-unique btn-pink btn-sm">Y</button>
-                        <button type="button" class="btn btn-unique btn-green btn-sm">M</button>
-                        <button type="button" class="btn btn-unique btn-amber btn-sm">W</button>
-                        <button type="button" class="btn btn-unique btn-red btn-sm">D</button>
+                        <button type="button" id="yearchart"     class="btn btn-unique btn-pink btn-sm" onclick="filterChart('y')">Y</button>
+                        <button type="button" id="monthchart"  class="btn btn-unique btn-green btn-sm" onclick="filterChart('m')">M</button>
+                        <button type="button" id="weakchart"   class="btn btn-unique btn-amber btn-sm" onclick="filterChart('w')">W</button>
+                        <button type="button" id="daychart"     class="btn btn-unique btn-red btn-sm" onclick="filterChart('d')">D</button>
                     </div>
                     <canvas id="lineChart"></canvas>
-                    script(src="/js/chart.js")
-                    <script>drawchart(#{dataset})</script>
+                    <script>filterChart('d')</script>
             //    drawchart()
     div(class='row')
         div(class='col-sm-1')

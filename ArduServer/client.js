@@ -1,10 +1,11 @@
 const net = require('net');
 const MAC_ADDRESS = '26FD52AD4E93';
 var client = new net.Socket();
-client.connect(80, 'ardu.damasarent.com', function () {
+//client.connect(80, 'ardu.damasarent.com', function () {
+
 //client.connect(1337, 'localhost', function () {
 //client.connect(3000, 'localhost', function () {
-
+client.connect(3000, '194.87.144.141', function () {
     //#" MAC_ADDRESS "\n #T1# 26.05\n #Z1# 1 \n ##
     temp = Math.random() * 28;
     sign = Math.random() > 0.5 ? temp * -1 : temp;
@@ -15,7 +16,8 @@ client.connect(80, 'ardu.damasarent.com', function () {
     console.log('Connected');
     //client.write('GET /entry/test HTTP/1.1' );// + message); 
     client.write(`GET /entry/${message} HTTP/1.1\r\n`);
-    client.write('Host:ardu.damasarent.com\r\n');
+    client.write('Host:194.87.144.141:3000\r\n');
+    //client.write('Host:ardu.damasarent.com\r\n');
     client.write('User-Agent:ARDU\r\n');
     client.write('Accept:text/html\r\n');
     client.write('Connection:keep-alive\r\n');

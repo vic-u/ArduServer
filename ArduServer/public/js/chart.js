@@ -1,3 +1,4 @@
+var myLineChart = undefined;
 $(document).on('click', '#o1s1', function (event) {
     console.log("toggle click");
     $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() });
@@ -12,9 +13,24 @@ $(document).on('input change', '#o1s1d', function (event) {
     $('#o1s1dl').text('Delta (1-5): ' + $('#o1s1d').val());
     $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() });
 });
-function drawchart(dataset) {
+function filterChart(dtype) {
+    console.log("click");
+    result = $.get("/filter/" + dtype, function (data) {
+        console.log("1");
+        console.log(data);
+        drawChart(data);
+    });
+    
+}
+function drawChart(dataset) {
+    console.log(dataset);
+    console.log(dataset.labels);
+    console.log(dataset.data);
+    console.log(dataset.label);
     var ctxL = document.getElementById("lineChart").getContext('2d');
-    var myLineChart = new Chart(ctxL, {
+    console.log(ctxL);
+    if (myLineChart !== undefined) myLineChart.destroy();
+    myLineChart = new Chart(ctxL, {
         type: 'line',
         data: {
             //labels: ['2019.0.23.9', '2019.0.23.9', '2019.0.24.11', '2019.0.24.11'],
@@ -30,18 +46,6 @@ function drawchart(dataset) {
                 ],
                 borderWidth: 2
             }
-            //},
-            //{
-            //    label: "My Second dataset",
-            //    data: [28, 48, 40, 19, 86, 27, 90],
-            //    backgroundColor: [
-            //        'rgba(0, 137, 132, .2)',
-            //    ],
-            //    borderColor: [
-            //        'rgba(0, 10, 130, .7)',
-            //    ],
-            //    borderWidth: 2
-            //}
             ]
         },
         options: {

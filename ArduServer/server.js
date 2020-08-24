@@ -55,8 +55,11 @@ app.post('/login', login.submit);
 app.get('/entries', entries.form);
 app.post('/entries', entries.submit);
 
+
+
 app.post('/sensor', rest.sensor); //переключение на форме
 app.get('/entry/:dt', rest.entry); // приходит с датчика по модему
+app.get('/filter/:dtype', rest.filter);
 
 app.set('port', process.env.PORT || 3000);
 //app.set('port', process.env.PORT || 1337);
