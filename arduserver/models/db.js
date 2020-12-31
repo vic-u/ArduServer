@@ -28,6 +28,7 @@ db.serialize(() => {
     //db.run(`DELETE FROM ${usrtbl}`);
     //db.run(`DELETE FROM ${snstbl}`);
     //db.run(`DELETE FROM ${cmdtbl}`);
+    //db.run(`DELETE FROM ${snstbl} WHERE value<0`); 
 });
 
 class DBSensor {
@@ -61,6 +62,20 @@ class DBSensor {
     }
     static getSensorDataByMAC(mac, cb) {
         db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
+    }
+    static getSensorDataByMacAndDate(mac, dtype, cb) {
+        if (dtype === "d") {
+            db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
+        }
+        if (dtype === "w") {
+            db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
+        }
+        if (dtype === "m") {
+            db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
+        }
+        if (dtype === "y") {
+            db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
+        }
     }
     //static setNewData(sarr, cb) {
     //    const obj = {};

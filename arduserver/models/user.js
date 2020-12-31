@@ -39,6 +39,11 @@ class User {
             
         }
     }
+    /**
+    * находит пользователя в базе
+    * @param {any} mail
+    * @param {any} cb
+    */
     static getByMail(mail, cb) {
         DBUser.findmail(mail, cb);
     }

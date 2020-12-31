@@ -53,22 +53,6 @@ exports.entry = (req, res) => {
 //rest. который вызывается при изменении настроек в клиенте для температуры и дельты 
 exports.sensor = (req, res, next) => {
     if (req.session.authorized !== true) return;
-    //const data = req.body.user;
-    //User.authenticate(data.mail, data.pass, (err, user) => {
-    //    if (err) return next(err);
-    //    if (user) {
-    //        req.session.authorized = true;
-    //        req.session.username = data.mail;
-
-    //        console.log('user is here!');
-    //        req.session.uid = user.id;
-    //        res.redirect('/entries');
-    //    }
-    //    else {
-    //        res.error('Sorry, invalid credentials!');
-    //        res.redirect('back');
-    //    }
-    //});
     User.getByMail(req.session.username, (err, user) => {
         console.log('toggle switch');
         //const data = req.body.sensor;
@@ -78,5 +62,41 @@ exports.sensor = (req, res, next) => {
             if (err) return next(err);
         });
     });
-    console.log('sensor is here!' + req.body.turn + "  " +  req.body.temp + " " + req.body.delta);
+    console.log('sensor is here!' + req.body.turn + "  " + req.body.temp + " " + req.body.delta);
+};
+//rest. который вызывается при изменении настроек в клиенте для температуры и дельты 
+exports.filter = (req, res, next) => {
+    if (req.session.authorized !== true) return;
+    User.getByMail(req.session.username, (err, user) => {
+        if (err) return next(err);
+        const dtype = req.params.dtype;
+        const mac = user.mac;
+        console.log('filter set' + dtype + " " + mac);
+        DBSensor.getSensorDataByMacAndDate(mac, dtype, (err, entries) => {
+            if (entries === undefined) entries = [];
+
+            var arr = [];
+            var arr2 = [];
+            var labels = 'labels:[]';
+            var data = 'data: []';
+            var lbl = 'NO DATA';
+            var j = 0;
+            for (i = entries.length - 1; i >= 0; --i) {
+                var e = entries[i];
+                var dt = "'" + e.timestamp + "'";
+                //arr[j] = dt.toString();
+                arr[j] = e.timestamp;
+                arr2[j] = parseFloat(e.value);
+                lbl = `${e.name} ${e.mac}`;
+                j++;
+            }
+            labels = 'labels:' + '[' + arr.toString() + ']';
+            data = 'data:' + '[' + arr2.toString() + ']';
+            if (err) return next(err);
+            if (entries) {
+                //res.send({ ${label}, ${labels}, ${data} });
+                res.send({ label: lbl, labels: arr, data: arr2 });
+            };
+        });
+    });
 };
