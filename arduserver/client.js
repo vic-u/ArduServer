@@ -1,7 +1,7 @@
 const net = require('net');
 const MAC_ADDRESS = '26FD52AD4E93';
 var client = new net.Socket();
-client.connect(80, 'ardu.damasarent.com', function () {
+client.connect(3000, '194.87.144.141', function () {
 //client.connect(1337, 'localhost', function () {
 //client.connect(3000, 'localhost', function () {
 
