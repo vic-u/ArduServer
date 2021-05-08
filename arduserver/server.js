@@ -9,6 +9,7 @@ const messages = require('./middleware/messages');
 const register = require('./routes/register');
 const login = require('./routes/login');
 const entries = require('./routes/entries');
+const entries2 = require('./routes/entries2');
 const rest = require('./routes/rest');
 
 const db = require('./models/db');
@@ -55,10 +56,15 @@ app.post('/login', login.submit);
 app.get('/entries', entries.form);
 app.post('/entries', entries.submit);
 
-app.post('/sensor', rest.sensor); //������������ �� �����
-app.get('/entry/:dt', rest.entry); // �������� � ������� �� ������
+app.get('/entries2', entries2.form);
+/*app.post('/entries2', entries2.submit);*/
+
+app.post('/sensor', rest.sensor); //переключение на форме
+app.post('/sensor2', rest.sensor2); //переключение на форме
+app.get('/entry/:dt', rest.entry); // приходит с датчика по модему
+app.get('/entry2/:dt', rest.entry2); // приходит с датчика по модему
 app.get('/filter/:dtype', rest.filter);
-app.get('/entries2', entries.form);
+app.get('/filter2/:dtype', rest.filter2);
 
 
 app.set('port', process.env.PORT || 3000);

@@ -57,9 +57,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server.js" />
+    <Content Include="client2.js" />
     <Content Include="package.json" />
     <Content Include="public\images\avg.png" />
+    <Content Include="public\js\select.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
+    <Content Include="routes\entries2.js" />
+    <Content Include="views\entries2.pug" />
+    <Content Include="views\layout 2.pug" />
+    <Content Include="views\layout2.pug" />
     <Content Include="views\layout.pug">
       <SubType>Code</SubType>
     </Content>

@@ -2,17 +2,18 @@ const User = require('../models/user');
 const DBSensor = require('../models/db').DBSensor;
 
 
-exports.form = (req, res) => {
+exports.form = (req, res, next) => {
+    console.log('test2!');
     if (!req.session.authorized) {
         res.error('Sorry, invalid credentials!');
         res.redirect('/');
     } else {
         User.getByMail(req.session.username, (err, user) => {
-            if (err) return next(err);
+            if (err) return next(err)
             if (user) {
                 const mac = user.mac;
                 DBSensor.getLastCommand(mac, (err, entries) => {
-                    if (err) return next(err);
+                    if (err) return next(err)
                     var turn = 'OFF';
                     var temp = '25';
                     var delta = '2';
@@ -21,7 +22,7 @@ exports.form = (req, res) => {
                         temp = entries.temp;
                         delta = entries.delta;
                     }
-                    //получаем данные по сенсору
+                    //РїРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РїРѕ СЃРµРЅСЃРѕСЂСѓ
                     DBSensor.getSensorDataByMAC(mac, (err, entries) => {
                         if (entries === undefined) entries = [];
                     
@@ -45,7 +46,7 @@ exports.form = (req, res) => {
                         if (entries) {
 
                             res.render('entries', {
-                                title: 'Sensor data', turn: (turn === 'ON') ? 'checked' : '', temp: temp, delta: delta, entries: entries, authorized: req.session.authorized,
+                                title: '169 СѓС‡Р°СЃС‚РѕРє', turn: (turn === 'ON') ? 'checked' : '', temp: temp, delta: delta, entries: entries, authorized: req.session.authorized,
                                 dataset: `{ ${label}, ${labels}, ${data} }`
                                 //dataset: `{ label: 'TEST'}`
                                 //dataset: `{ label: 'TEST', ${labels} }`

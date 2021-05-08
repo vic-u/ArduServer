@@ -13,6 +13,7 @@ $(document).on('input change', '#o1s1d', function (event) {
     $('#o1s1dl').text('Delta (1-5): ' + $('#o1s1d').val());
     $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() });
 });
+//180
 function filterChart(dtype) {
     console.log("click");
     result = $.get("/filter/" + dtype, function (data) {
@@ -22,6 +23,16 @@ function filterChart(dtype) {
     });
 
 }
+function filterChart2(dtype) {
+    console.log("click filter2");
+    result = $.get("/filter2/" + dtype, (data)=>{
+        console.log("1");
+        console.log(data);
+        drawChart(data);
+    });
+
+}
+
 function drawChart(dataset) {
     console.log(dataset);
     console.log(dataset.labels);
