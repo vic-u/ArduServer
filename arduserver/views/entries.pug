@@ -1,67 +1,54 @@
 extends layout
 
 block content
-    script(src="/js/chart.js")
+    script(src='/js/chart.js')
+    script(src='/js/select.js')
     div(class='row')
         div(class='col-1')
         div(class='col-')
-            h1= title
-    //p Fill in the form below to sign up
+            h1 #{title}
     div(class='row')
         div(class='col-1')
         div(class='col-')
             include messages
     div(class='row')
         div(class='col-sm-1')
-            <i class="fas fa-temperature-high"></i>
+            i(class='fas fa-temperature-high')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='row')
                         div(class='col-sm-4')
-                                <div class="custom-control custom-switch" >
-                                    <input type="checkbox" class="custom-control-input" id="o1s1" #{turn}> 
-                                    <label class="custom-control-label" for="o1s1">Тепло (ON/OFF)</label>
-                                </div>
+                            div(class='custom-control custom-switch')
+                                input(type='checkbox' class='custom-control-input' id='o1s1' onclick='selectToggler()' checked=turn) 
+                                label(class='custom-control-label' for='o1s1') Тепло (ON/OFF)                              
                         div(class='col-sm-4')
-                            <div>
-                                <label id="o1s1tl" for="o1s1t">Temp (0-30): #{temp}</label>
-                                <input type="range" class="custom-range" min="0" max="30" value=#{temp} id="o1s1t">
-                            </div>
+                            div
+                                label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
+                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')                           
                         div(class='col-sm-4')
-                            <div>
-                                <label id="o1s1dl" for="o1s1d">Delta (1-5): #{delta} </label>
-                                <input type="range" class="custom-range" min="1" max="5" value=#{delta} id="o1s1d">
-                            </div>
-                    //<input type="checkbox" checked data-toggle="toggle">
-                    //form(action='/entries' method='post')
-                        label(class='checkbox-inline')
-                            <input name="sensor" type="checkbox" #{check} onchange="this.form.submit()" data-toggle="toggle" data-size="large" data-on="<i class='fa fa-play'></i> Sensor on" data-off="<i class='fa fa-stop'></i> Sensor off" data-onstyle="success" data-offstyle="danger">Sensor Switch
-        //div(class='col-')
-            div(class='well')
-                <b>0°</b><input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="25"/><b>30°</b>
-        //div(class='col-')
-            <b>1°</b><input id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="2"/><b>5°</b>
+                            div
+                                label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
+                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')                                               
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')           
             div(class='card')
                 div(class='card-body')
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" id="yearchart"     class="btn btn-unique btn-pink btn-sm" onclick="filterChart('y')">Y</button>
-                        <button type="button" id="monthchart"  class="btn btn-unique btn-green btn-sm" onclick="filterChart('m')">M</button>
-                        <button type="button" id="weakchart"   class="btn btn-unique btn-amber btn-sm" onclick="filterChart('w')">W</button>
-                        <button type="button" id="daychart"     class="btn btn-unique btn-red btn-sm" onclick="filterChart('d')">D</button>
-                    </div>
-                    <canvas id="lineChart"></canvas>
-                    <script>filterChart('d')</script>
-            //    drawchart()
+                    div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
+                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm' onclick='filterChart("y")') Y
+                        button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm' onclick='filterChart("m")') M
+                        button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm' onclick='filterChart("w")') W
+                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm' onclick='filterChart("d")') D
+                    canvas(id='lineChart')
+                    script(type="text/javascript").
+                        filterChart('d')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
-                    <button type="button" class="btn btn-info btn-rounded" data-toggle="collapse" data-target="#detail">Detail</button>
+                    button(type='button' class='btn btn-info btn-rounded' data-toggle='collapse' data-target='#detail') Данные
                     div(id="detail" class="collapse in" aria-expanded="true")
                         table(class='table')
                             thead

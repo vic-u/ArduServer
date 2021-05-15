@@ -74,11 +74,14 @@ exports.entry2 = (req, res, next) => {
             if (err) console.log('setCommand2 Err: ' + err)
             DBSensor.getLastCommand2(arr[1], (err, data) => {
                 if (err) res.status(500).send('no data')
+                console.log('entry2 ')
+                console.log(JSON.stringify(data))
                 heaterResp = (data !== undefined && data.turn_heater === 'ON') ? 'ON' : 'OFF'
                 hollResp = (data !== undefined && data.turn_holl === 'ON') ? 'ON' : 'OFF'
                 waterResp = (data !== undefined && data.turn_water === 'ON') ? 'ON' : 'OFF'
                 irrResp = (data !== undefined && data.turn_irr === 'ON') ? 'ON' : 'OFF'
                 const result = `=${arr[1]}=${arr[2]}===${heaterResp}=${hollResp}=${waterResp}=${irrResp}=${data.temp}=${data.delta}`
+                console.log(result)
                 res.status(200).send(result)
             })
         })
@@ -99,7 +102,7 @@ exports.sensor = (req, res, next) => {
 };
 //rest. который вызывается при изменении настроек в клиенте для температуры и дельты 
 exports.sensor2 = (req, res, next) => {
-    if (req.session.authorized !== true) return next(err)
+    if (req.session.authorized !== true) return res.status(403).send('not authorized')
     User.getByMail(req.session.username, (err, user) => {
         if (err) return next(err)
         console.log('toggle switch')

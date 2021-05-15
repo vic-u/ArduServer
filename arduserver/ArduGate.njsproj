@@ -66,8 +66,6 @@
     <Content Include="README.md" />
     <Content Include="routes\entries2.js" />
     <Content Include="views\entries2.pug" />
-    <Content Include="views\layout 2.pug" />
-    <Content Include="views\layout2.pug" />
     <Content Include="views\layout.pug">
       <SubType>Code</SubType>
     </Content>

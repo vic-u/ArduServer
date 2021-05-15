@@ -1,13 +1,12 @@
-extends layout2
+extends layout
 
 block content
-    script(src="/js/chart.js")
-    script(src="/js/select.js")
+    script(src='/js/chart.js')
+    script(src='/js/select.js')
     div(class='row')
         div(class='col-1')
         div(class='col-')
             h1 #{title}
-    
     div(class='row')
         div(class='col-1')
         div(class='col-')
@@ -21,49 +20,48 @@ block content
                     div(class='row')
                         div(class='col-sm-2')
                              div(class='custom-control custom-switch')
-                                input(type='checkbox' class='custom-control-input' onclick='selectToggler()' id='o2s1heater' checked=heaterTurn) 
+                                input(type='checkbox' class='custom-control-input' onclick='selectToggler2()' id='o2s1heater' checked=heaterTurn) 
                                 label(class='custom-control-label' for='o2s1heater') Тепло (ON/OFF)
                         div(class='col-sm-2')
                             div(class='custom-control custom-switch')
-                                input(type='checkbox' class='custom-control-input' onclick='selectToggler()' id='o2s1holl' checked=hollTurn) 
+                                input(type='checkbox' class='custom-control-input' onclick='selectToggler2()' id='o2s1holl' checked=hollTurn) 
                                 label(class='custom-control-label' for='o2s1holl') Холод (ON/OFF)                               
                         div(class='col-sm-2')
                                 div(class='custom-control custom-switch')
-                                    input(type='checkbox' class='custom-control-input' onclick='selectToggler()' id='o2s1water' checked=waterTurn) 
+                                    input(type='checkbox' class='custom-control-input' onclick='selectToggler2()' id='o2s1water' checked=waterTurn) 
                                     label(class='custom-control-label' for='o2s1water') Вода (ON/OFF)
                         div(class='col-sm-2')
                                 div(class='custom-control custom-switch')
-                                    input(type='checkbox' class='custom-control-input' onclick='selectToggler()' id='o2s1irr' checked=irrTurn)
+                                    input(type='checkbox' class='custom-control-input' onclick='selectToggler2()' id='o2s1irr' checked=irrTurn)
                                     label(class='custom-control-label' for='o2s1irr') Полив (ON/OFF)
                         div(class='col-sm-2')
                             div
                                 label(id='o2s1tl' for='o2s1t') Temp (0-30): #{temp}
-                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o2s1t' onchange='selectRange("o2s1tl", "o2s1t", "Temp (0-30): ")')                        
+                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o2s1t' onchange='selectRange2("o2s1tl", "o2s1t", "Temp (0-30): ")')                        
                         div(class='col-sm-2')
                             div
                                 label(id='o2s1dl' for='o2s1d') Delta (1-5): #{delta}
-                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o2s1d' onchange='selectRange("o2s1dl", "o2s1d", "Delta (1-5): ")')
+                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o2s1d' onchange='selectRange2("o2s1dl", "o2s1d", "Delta (1-5): ")')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')           
             div(class='card')
                 div(class='card-body')
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" id="yearchart"     class="btn btn-unique btn-pink btn-sm" onclick="filterChart2('y')">Y</button>
-                        <button type="button" id="monthchart"  class="btn btn-unique btn-green btn-sm" onclick="filterChart2('m')">M</button>
-                        <button type="button" id="weakchart"   class="btn btn-unique btn-amber btn-sm" onclick="filterChart2('w')">W</button>
-                        <button type="button" id="daychart"     class="btn btn-unique btn-red btn-sm" onclick="filterChart2('d')">D</button>
-                    </div>
-                    <canvas id="lineChart"></canvas>
-                    <script>filterChart2('d')</script>
-            //    drawchart()
+                    div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
+                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm' onclick='filterChart2("y")') Y
+                        button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm' onclick='filterChart2("m")') M
+                        button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm' onclick='filterChart2("w")') W
+                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm' onclick='filterChart2("d")') D
+                    canvas(id='lineChart')
+                    script(type="text/javascript").
+                        filterChart2('d')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
-                    <button type="button" class="btn btn-info btn-rounded" data-toggle="collapse" data-target="#detail">Detail</button>
-                    div(id="detail" class="collapse in" aria-expanded="true")
+                    button(type='button' class='btn btn-info btn-rounded' data-toggle='collapse' data-target='#detail') Данные
+                    div(id='detail' class='collapse in' aria-expanded='true')
                         table(class='table')
                             thead
                                 tr

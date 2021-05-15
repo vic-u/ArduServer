@@ -131,20 +131,41 @@ class DBSensor {
         db.run(sql, data.mac, data.name, data.turn, data.temp, data.delta, cb);
     }
     static setCommand2(data, cb) {
-        this.getLastCommand2(data.mac, (err, entry) => { 
-            if (data.heaterTurn === '') data.heaterTurn = 'OFF' // с модема приходит обычная команда, тогда часть пустое, но температуру и дельту могли переключить
-            if (data.hollTurn === '') data.hollTurn = 'OFF'           
-            if (data.waterTurn === '') data.waterTurn = 'OFF'
-            if (data.irrTurn === '') data.irrTurn = 'OFF'  //пришла просто команда без изменений, пустая и температуры равны последним установленным
-            if (entry !== undefined && //команда приходит, но совпадает 
-                entry.turn_heater === data.heaterTurn &&
-                entry.turn_holl === data.hollTurn &&
-                entry.turn_water === data.waterTurn &&
-                entry.turn_irr === data.irrTurn &&
-                entry.temp === data.temp &&
-                entry.delta === data.delta) return cb()           
-            const sql = `INSERT INTO ${cmdtbl2}( mac, name, turn_heater, turn_holl, turn_water, turn_irr, temp, delta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-            db.run(sql, data.mac, data.name, data.heaterTurn, data.hollTurn, data.waterTurn, data.irrTurn, data.temp, data.delta, cb)
+        console.log('set command 2')
+        this.getLastCommand2(data.mac, (err, entry) => {
+            console.log(JSON.stringify(entry))
+            console.log(JSON.stringify(data))
+            //просто команда с модема
+            if (data.heaterTurn === '' && data.hollTurn === '' && data.waterTurn === '' && data.irrTurn === '' && data.temp === '' && data.delta === '') return cb()
+
+            if (data.heaterTurn === '' && data.hollTurn === '' && data.waterTurn === '' && data.irrTurn === '' && data.temp === '' && data.delta !== '') {
+                const sql = `INSERT INTO ${cmdtbl2}( mac, name, turn_heater, turn_holl, turn_water, turn_irr, temp, delta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+                db.run(sql, data.mac, data.name, entry.turn_heater, entry.turn_holl, entry.turn_water, entry.turn_irr, data.temp, data.delta, cb)
+            } else if (data.heaterTurn === '' && data.hollTurn === '' && data.waterTurn === '' && data.irrTurn === '' && data.temp !== '' && data.delta === '') {
+                const sql = `INSERT INTO ${cmdtbl2}( mac, name, turn_heater, turn_holl, turn_water, turn_irr, temp, delta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+                db.run(sql, data.mac, data.name, entry.turn_heater, entry.turn_holl, entry.turn_water, entry.turn_irr, data.temp, data.delta, cb)
+            } else if (data.heaterTurn === '' && data.hollTurn === '' && data.waterTurn === '' && data.irrTurn === '' && data.temp !== '' && data.delta !== '') {
+                const sql = `INSERT INTO ${cmdtbl2}( mac, name, turn_heater, turn_holl, turn_water, turn_irr, temp, delta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+                db.run(sql, data.mac, data.name, entry.turn_heater, entry.turn_holl, entry.turn_water, entry.turn_irr, data.temp, data.delta, cb)
+            } else {
+                //пришла команда
+                console.log('get modem command')
+                if (data.heaterTurn === '') data.heaterTurn = 'OFF' // с модема приходит обычная команда, тогда часть пустое, но температуру и дельту могли переключить
+                if (data.hollTurn === '') data.hollTurn = 'OFF'
+                if (data.waterTurn === '') data.waterTurn = 'OFF'
+                if (data.irrTurn === '') data.irrTurn = 'OFF'  //пришла просто команда без изменений, пустая и температуры равны последним установленным
+                console.log(JSON.stringify(data))
+                if (entry !== undefined && //команда приходит, но совпадает 
+                    entry.turn_heater === data.heaterTurn &&
+                    entry.turn_holl === data.hollTurn &&
+                    entry.turn_water === data.waterTurn &&
+                    entry.turn_irr === data.irrTurn &&
+                    entry.temp === data.temp &&
+                    entry.delta === data.delta) return cb()
+                console.log('insert new command')
+                const sql = `INSERT INTO ${cmdtbl2}( mac, name, turn_heater, turn_holl, turn_water, turn_irr, temp, delta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+                db.run(sql, data.mac, data.name, data.heaterTurn, data.hollTurn, data.waterTurn, data.irrTurn, data.temp, data.delta, cb)
+            }
         })
     }
 }

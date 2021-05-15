@@ -1,50 +1,19 @@
-var myLineChart = undefined;
-$(document).on('click', '#o1s1', function (event) {
-    console.log("toggle click");
-    $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() });
-});
-$(document).on('input change', '#o1s1t', function (event) {
-    console.log('temp click');
-    $('#o1s1tl').text('Temp (0-30): ' + $('#o1s1t').val());
-    $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() });
-});
+var myLineChart = undefined
 $(document).on('input change', '#o1s1d', function (event) {
-    console.log('delta click');
-    $('#o1s1dl').text('Delta (1-5): ' + $('#o1s1d').val());
-    $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() });
-});
-//180
-function filterChart(dtype) {
-    console.log("click");
-    result = $.get("/filter/" + dtype, function (data) {
-        console.log("1");
-        console.log(data);
-        drawChart(data);
-    });
-
-}
-function filterChart2(dtype) {
-    console.log("click filter2");
-    result = $.get("/filter2/" + dtype, (data)=>{
-        console.log("1");
-        console.log(data);
-        drawChart(data);
-    });
-
-}
+    console.log('delta click')
+    $('#o1s1dl').text('Delta (1-5): ' + $('#o1s1d').val())
+    $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() })
+})
+filterChart=(dtype) =>$.get('/filter/' + dtype, (data)=>drawChart(data))
+filterChart2=(dtype)=> $.get('/filter2/' + dtype, (data)=>drawChart(data))
 
 function drawChart(dataset) {
-    console.log(dataset);
-    console.log(dataset.labels);
-    console.log(dataset.data);
-    console.log(dataset.label);
-    var ctxL = document.getElementById("lineChart").getContext('2d');
+    const ctxL = document.getElementById('lineChart').getContext('2d')
     console.log(ctxL);
-    if (myLineChart !== undefined) myLineChart.destroy();
+    if (myLineChart !== undefined) myLineChart.destroy()
     myLineChart = new Chart(ctxL, {
         type: 'line',
         data: {
-            //labels: ['2019.0.23.9', '2019.0.23.9', '2019.0.24.11', '2019.0.24.11'],
             labels: dataset.labels,
             datasets: [{
                 label: dataset.label,
@@ -56,11 +25,10 @@ function drawChart(dataset) {
                     'rgba(200, 99, 132, .7)',
                 ],
                 borderWidth: 2
-            }
-            ]
+            }]
         },
         options: {
             responsive: true
         }
-    });
+    })
 }
