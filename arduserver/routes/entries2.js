@@ -19,7 +19,7 @@ fillDataset = (entries) => {
         const e = entries[i]
         name = e.name
         mac = e.mac
-        console.log('entries ' + JSON.stringify(e))
+        //console.log('entries ' + JSON.stringify(e))
         const dt = "'" + e.timestamp + "'"
         dateTs[j] = dt.toString()
         values[j] = e.room_value
@@ -27,7 +27,7 @@ fillDataset = (entries) => {
     }
     return { label: `${name} ${mac}`, labels: dateTs, data: values}
 }
-exports.form = (req, res) => {
+exports.form = (req, res,next) => {
     const TITLE = '180 участок'
     const TEMP_DEFAULT = '25'
     const DELTA_DEFAULT = '2'
@@ -36,7 +36,7 @@ exports.form = (req, res) => {
     console.log('test33!');
     User.getByMail(req.session.username, (err, user) => {
         console.log('test34!' + MAC);
-        if (err || !user) return err
+        if (err || !user) return next(err)
         console.log('test3!' + MAC);
 
         DBSensor.getLastCommand2(MAC, (err, entries) => {  //получаем данные по командам
@@ -48,28 +48,28 @@ exports.form = (req, res) => {
             const waterTurn = (isCommandEntries && entries.turn_water === 'ON') ? 'ON' : 'OFF'
             const irrTurn = (isCommandEntries && entries.turn_irr === 'ON') ? 'ON' : 'OFF'
             const temp = (isCommandEntries) ? entries.temp : TEMP_DEFAULT
-            const delta = (isCommandEntries) ? entries.delta : DELTA_DEFAULT 
-            
-            DBSensor.getSensorDataByMAC2(MAC, (err, entries) => { //получаем данные по сенсору
+            const delta = (isCommandEntries) ? entries.delta : DELTA_DEFAULT
+
+            DBSensor.getSensorDataByMAC2ForYear(MAC, (err, entries) => { //получаем данные по сенсору
                 console.log('test5!')
-                console.log(entries)
+                //console.log(entries)
                 const dataset = (entries === undefined) ? DATASET_EMPTY : fillDataset(entries)
                 console.log('test7!');
-                console.log('object ' + JSON.stringify({
-                    title: 'Sensor data',
-                    heaterTurn: (heaterTurn === 'ON') ? 'checked' : '',
-                    hollTurn: (hollTurn === 'ON') ? 'checked' : '',
-                    waterTurn: (waterTurn === 'ON') ? 'checked' : '',
-                    irrTurn: (irrTurn === 'ON') ? 'checked' : '',
-                    temp: temp, delta: delta, entries: entries, authorized: req.session.authorized,
-                    dataset: JSON.stringify(dataset)                           
-                }));
+                // console.log('object ' + JSON.stringify({
+                //     title: 'Sensor data',
+                //     heaterTurn: (heaterTurn === 'ON') ? 'checked' : '',
+                //     hollTurn: (hollTurn === 'ON') ? 'checked' : '',
+                //     waterTurn: (waterTurn === 'ON') ? 'checked' : '',
+                //     irrTurn: (irrTurn === 'ON') ? 'checked' : '',
+                //     temp: temp, delta: delta, entries: entries, authorized: req.session.authorized,
+                //     dataset: JSON.stringify(dataset)
+                // }));
                 res.render('entries2', {
                     title: TITLE,
-                    heaterTurn: (heaterTurn === 'ON') ? true : false,
-                    hollTurn: (hollTurn === 'ON') ? true : false,
-                    waterTurn: (waterTurn === 'ON') ? true : false,
-                    irrTurn: (irrTurn === 'ON') ? true : false,
+                    heaterTurn: (heaterTurn === 'ON'),
+                    hollTurn: (hollTurn === 'ON'),
+                    waterTurn: (waterTurn === 'ON'),
+                    irrTurn: (irrTurn === 'ON'),
                     temp: temp, delta: delta, entries: entries === undefined ? [] : entries, authorized: req.session.authorized,
                     dataset: JSON.stringify(dataset)
                 });

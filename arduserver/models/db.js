@@ -39,7 +39,7 @@ db.serialize(() => {
     //db.run(`DELETE FROM ${usrtbl}`);
     //db.run(`DELETE FROM ${snstbl}`);
     //db.run(`DELETE FROM ${cmdtbl}`);
-    //db.run(`DELETE FROM ${snstbl} WHERE value<0`); 
+    //db.run(`DELETE FROM ${snstbl} WHERE value<0`);
 });
 
 class DBSensor {
@@ -79,6 +79,9 @@ class DBSensor {
     static getSensorDataByMAC2(mac, cb) {
         db.all(`SELECT id, mac, name, box_value,  room_value, strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
     }
+    static getSensorDataByMAC2ForYear(mac, cb) {
+        db.all(`SELECT id, mac, name, box_value,  room_value, strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE timestamp >= date('now','-12 months') ORDER BY timestamp DESC`, mac, cb);
+    }
 
     static getSensorDataByMacAndDate(mac, dtype, cb) {
         if (dtype === "d") {
@@ -108,7 +111,7 @@ class DBSensor {
             db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
         }
     }
-    
+
     static setNewData(data, cb) {
         const sql = `INSERT INTO ${snstbl}(mac, name, value) VALUES (?, ?, ?)`;
         db.run(sql, data.mac, data.name, data.value, cb);
@@ -155,7 +158,7 @@ class DBSensor {
                 if (data.waterTurn === '') data.waterTurn = 'OFF'
                 if (data.irrTurn === '') data.irrTurn = 'OFF'  //пришла просто команда без изменений, пустая и температуры равны последним установленным
                 console.log(JSON.stringify(data))
-                if (entry !== undefined && //команда приходит, но совпадает 
+                if (entry !== undefined && //команда приходит, но совпадает
                     entry.turn_heater === data.heaterTurn &&
                     entry.turn_holl === data.hollTurn &&
                     entry.turn_water === data.waterTurn &&
