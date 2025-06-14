@@ -1,6 +1,6 @@
 const User = require('../models/user');
 exports.form = (req, res) => {
-    res.render('login', { title: 'Login', authorized: req.session.authorized})
+    res.render('login', {title: 'Login', authorized: req.session.authorized})
 }
 exports.submit = (req, res, next) => {
     console.log('login submit')
@@ -18,12 +18,18 @@ exports.submit = (req, res, next) => {
             console.log('user is here!')
             req.session.uid = user.id
             res.redirect('/entries')
-        }
-        else {
+        } else {
             res.error('Sorry, invalid credentials!')
             res.redirect('/')
 
         }
+        next()
     })
-
+}
+exports.logout = (req, res, next) => {
+    req.session.authorized = false
+    req.session.username = undefined
+    req.session.uid = undefined
+    res.redirect('/')
+    next()
 }

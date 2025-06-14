@@ -18,27 +18,26 @@ block content
             div(class='card')
                 div(class='card-body')
                     div(class='row')
-                        div(class='col-sm-4')
+                        div(class='col-md-4 d-flex justify-content-between')
                             div(class='form-check form-switch')
                                 input(type='checkbox' class='form-check-input' id='o1s1' onclick='selectToggler()' checked=turn)
                                 label(class='form-check-label' for='o1s1') Тепло (ON/OFF)
-                        div(class='col-sm-4')
-                                label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
-                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')
-                        div(class='col-sm-4')
-                            div
-                                label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
-                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')
+                        div(class='col-md-4 d-flex justify-content-between')
+                            label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
+                            input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')
+                        div(class='col-md-4 d-flex justify-content-between')
+                            label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
+                            input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
-                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm' onclick='filterChart("y")') Y
+                        button(type='button' id='yearchart' class='btn btn-sm rounded-end rounded-pill btn-unique btn-pink' onclick='filterChart("y")') Y
                         button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm' onclick='filterChart("m")') M
                         button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm' onclick='filterChart("w")') W
-                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm' onclick='filterChart("d")') D
+                        button(type='button' id='daychart' class='btn rounded-start rounded-pill btn-unique btn-red btn-sm waves-effect waves-light' onclick='filterChart("d")') D
                     canvas(id='lineChart')
                     script(type="text/javascript").
                         filterChart('d')
@@ -47,7 +46,7 @@ block content
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
-                    button(type='button' class='btn btn-info btn-rounded' data-toggle='collapse' data-target='#detail') Данные
+                    button(type='button' class='btn btn-info rounded-pill' data-toggle='collapse' data-target='#detail') Данные
                     div(id="detail" class="collapse in" aria-expanded="true")
                         table(class='table')
                             thead

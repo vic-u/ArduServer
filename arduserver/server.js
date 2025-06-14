@@ -36,6 +36,7 @@ app.post('/register', register.submit)
 
 app.get('/login', login.form)
 app.post('/login', login.submit)
+app.get('/logout', login.logout)
 
 app.get('/entries', entries.form)
 app.get('/entries2', entries2.form)

@@ -3,21 +3,21 @@ extends layout
 block content
     div(class='row')
         div(class='col-1')
-        div(class='col-')
+        div(class='col-md-4')
             h1= title
     div(class='row')
         div(class='col-1')
-        div(class='col-4')
+        div(class='col-md-4')
             include messages
     div(class='row')
         div(class='col-1')
-        div(class='col-4')
+        div(class='col-md-4')
             form(action='/login' method='post')
                 div(class="form-group")
                     label(for="InputEmail") Email address
-                    input(type="email", class="form-control", id="InputEmail", aria-describedby="emailHelp", placeholder="Enter email", name='user[mail]')
-                    small(id="emailHelp" class="form-text text-muted") We'll never share your email with anyone else.
+                    input(type="email", class="form-control rounded-pill", id="InputEmail", aria-describedby="emailHelp", placeholder="Enter email", name='user[mail]')
                 div(class="form-group")
                     label(for="InputPassword") Password
-                    input(type="password" class="form-control" id="InputPassword" placeholder="Password" name='user[pass]')
-                button(type="submit" class="btn btn-primary btn-rounded-") Login
+                    input(type="password" class="form-control rounded-pill" id="InputPassword" placeholder="Password" name='user[pass]')
+                div(class="mt-3 d-flex justify-content-center")
+                    button(type="submit" class="btn btn-primary rounded-pill") Login
