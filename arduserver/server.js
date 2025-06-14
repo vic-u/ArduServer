@@ -11,7 +11,7 @@ const entries = require('./routes/entries')
 const entries2 = require('./routes/entries2')
 const rest = require('./routes/rest')
 
-var app = express()
+const app = express();
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
