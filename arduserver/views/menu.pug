@@ -1,30 +1,24 @@
 if (authorized)
     div
         nav(class='navbar navbar-expand-md navbar-dark bg-dark')
-            a(class="navbar-brand",href="#") 
-                <img src="/images/avg.png" width="30" height="30" class="d-inline-block align-top" alt="">AVG           
-            button(class="navbar-toggler",data-toggle="collapse",data-target="#navbar1")
+            a(class="navbar-brand", href="#")
+                <img src="/images/avg.png" width="30" height="30" class="d-inline-block align-top" alt="">AVG
+            button(class="navbar-toggler", type="button", data-bs-toggle="collapse", data-bs-target="#navbar1")
                 span(class="navbar-toggler-icon")
-            div(class="navbar-collapse collapse",id="navbar1", style)
-                ul(class="navbar-nav mr-auto")
-                    li(class="nav-item active")
-                        <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
-                    li(class="nav-item")
-                        a(class="nav-link" href="/entries") 169
-                    li(class="nav-item")
-                        a(class="nav-link" href="/entries2") 180
-                    li(class="nav-item")
-                        a(class="nav-link" href="/register") Profile
-else
-    div
-        nav(class='navbar navbar-expand-md navbar-dark bg-dark')
-            a(class="navbar-brand",href="#") 
-                <img src="/images/avg.png" width="30" height="30" class="d-inline-block align-top" alt="">AVG          
-            button(class="navbar-toggler",data-toggle="collapse",data-target="#navbar1")
-                span(class="navbar-toggler-icon")
-            div(class="navbar-collapse collapse",id="navbar1", style)
-                ul(class="navbar-nav mr-auto")
-                    li(class="nav-item active")
-                        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-                    li(class="nav-item")
-                        a(class="nav-link" href="/register") Register
+            div(class="navbar-collapse collapse", id="navbar1", style)
+                if (authorized)
+                    ul(class="navbar-nav mr-auto")
+                        li(class="nav-item active")
+                            <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
+                        li(class="nav-item")
+                            a(class="nav-link" href="/entries") 169
+                        li(class="nav-item")
+                            a(class="nav-link" href="/entries2") 180
+                        li(class="nav-item")
+                            a(class="nav-link" href="/register") Profile
+                else
+                    ul(class="navbar-nav mr-auto")
+                        li(class="nav-item active")
+                            <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+                        li(class="nav-item")
+                            a(class="nav-link" href="/register") Register

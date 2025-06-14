@@ -4,7 +4,7 @@ Server to work with Arduino GSM gate
 часы https://linux16.ru/articles/kak-uznat-v-linux-vremya-na-servere.html
 сервер https://ruvds.com/ru-rub/my/servers
 
-зайти на серввер putty
+зайти на сервер putty
 перейти в cd /home
 остановить pm2 stop 0 
 забрать с git версию git fetch, git pull, git checkout ...
@@ -16,7 +16,7 @@ pm2 list
 stop firewalld
 systemctl stop firewalld
 
-другой вариант с включением firewall
+Другой вариант с включением firewall
 
 systemctl start firewalld
 firewall-cmd --permanent --add-port=3000/tcp

@@ -1,10 +1,17 @@
-selectToggler = () => $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val()})
+selectToggler = () =>
+    $.post("/sensor",
+        {
+            turn: $('#o1s1').is(':checked'),
+            temp: $('#o1s1t').val(),
+            delta: $('#o1s1d').val()
+        }
+    )
+
 selectRange = (labelId, elemId, msg) => {
     $('#' + labelId).text(msg + $('#' + elemId).val())
     selectToggler()
-}   
-selectToggler2 = () => {
-    console.log("select toggler")
+}
+selectToggler2 = () =>
     $.post("/sensor2",
         {
             heaterTurn: $('#o2s1heater').is(':checked'),
@@ -13,9 +20,9 @@ selectToggler2 = () => {
             irrTurn: $('#o2s1irr').is(':checked'),
             temp: $('#o2s1t').val(),
             delta: $('#o2s1d').val()
-        })
-}
+        }
+    )
 selectRange2 = (labelId, elemId, msg) => {
     $('#' + labelId).text(msg + $('#' + elemId).val())
     selectToggler2()
-} 
+}

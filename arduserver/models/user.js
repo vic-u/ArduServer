@@ -36,7 +36,7 @@ class User {
                     cb(err);
                 });
             });
-            
+
         }
     }
     /**
@@ -49,14 +49,14 @@ class User {
     }
     static authenticate(mail, pass, cb) {
         User.getByMail(mail, (err, user) => {
-            if (err) return cb(err);
-            if (!user || !user.id) return cb();
+            if (err) return cb(err)
+            if (!user || !user.id) return cb()
             bcrypt.hash(pass, user.salt, (err, hash) => {
-                if (err) return cb(err);
-                if (hash === user.pass) return cb(null, user);
-                cb();
-            });
-        });
+                if (err) return cb(err)
+                if (hash === user.pass) return cb(null, user)
+                return cb()
+            })
+        })
     }
 }
 module.exports = User;

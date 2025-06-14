@@ -3,9 +3,14 @@ exports.form = (req, res) => {
     res.render('login', { title: 'Login', authorized: req.session.authorized})
 }
 exports.submit = (req, res, next) => {
+    console.log('login submit')
     const data = req.body.user
+
+    console.log(data)
     User.authenticate(data.mail, data.pass, (err, user) => {
-        if (err) return next(err)
+        if (err) {
+            return next(err)
+        }
         if (user) {
             req.session.authorized = true
             req.session.username = data.mail
@@ -16,8 +21,9 @@ exports.submit = (req, res, next) => {
         }
         else {
             res.error('Sorry, invalid credentials!')
-            res.redirect('back')
-        }
-    });
+            res.redirect('/')
 
-};
+        }
+    })
+
+}

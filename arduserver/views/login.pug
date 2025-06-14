@@ -7,11 +7,11 @@ block content
             h1= title
     div(class='row')
         div(class='col-1')
-        div(class='col-')
+        div(class='col-4')
             include messages
     div(class='row')
         div(class='col-1')
-        div(class='col-')
+        div(class='col-4')
             form(action='/login' method='post')
                 div(class="form-group")
                     label(for="InputEmail") Email address
@@ -20,4 +20,4 @@ block content
                 div(class="form-group")
                     label(for="InputPassword") Password
                     input(type="password" class="form-control" id="InputPassword" placeholder="Password" name='user[pass]')
-                button(type="submit" class="btn btn-primary btn-rounded") Login
+                button(type="submit" class="btn btn-primary btn-rounded-") Login

@@ -9,6 +9,7 @@ function message(req) {
     }
 }
 module.exports = (req, res, next) => {
+    console.log('enter error and message handler')
     res.message = message(req)
     res.error = (msg) => {
         return res.message(msg, 'error')

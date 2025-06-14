@@ -92,7 +92,8 @@ exports.entry2 = (req, res, next) => {
 }
 //rest. который вызывается при изменении настроек в клиенте для температуры и дельты
 exports.sensor = (req, res, next) => {
-    if (req.session.authorized !== true) return;
+    console.log('sensor')
+    if (req.session.authorized !== true) return next('not authorized')
     User.getByMail(req.session.username, (err, user) => {
         console.log('toggle switch')
         var turn = 'ON'
@@ -108,6 +109,7 @@ exports.sensor = (req, res, next) => {
         })
     })
     console.log('sensor is here!' + req.body.turn + "  " + req.body.temp + " " + req.body.delta)
+
 };
 //rest. который вызывается при изменении настроек в клиенте для температуры и дельты
 exports.sensor2 = (req, res, next) => {

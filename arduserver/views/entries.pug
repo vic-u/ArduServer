@@ -19,20 +19,19 @@ block content
                 div(class='card-body')
                     div(class='row')
                         div(class='col-sm-4')
-                            div(class='custom-control custom-switch')
-                                input(type='checkbox' class='custom-control-input' id='o1s1' onclick='selectToggler()' checked=turn) 
-                                label(class='custom-control-label' for='o1s1') Тепло (ON/OFF)                              
+                            div(class='form-check form-switch')
+                                input(type='checkbox' class='form-check-input' id='o1s1' onclick='selectToggler()' checked=turn)
+                                label(class='form-check-label' for='o1s1') Тепло (ON/OFF)
                         div(class='col-sm-4')
-                            div
                                 label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
-                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')                           
+                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')
                         div(class='col-sm-4')
                             div
                                 label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
-                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')                                               
+                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')
     div(class='row')
         div(class='col-sm-1')
-        div(class='col-sm-10')           
+        div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
@@ -61,6 +60,5 @@ block content
                                 tr
                                     td #{entry.timestamp}
                                     td #{entry.name}
-                                    td #{entry.value} 
+                                    td #{entry.value}
 
-                
