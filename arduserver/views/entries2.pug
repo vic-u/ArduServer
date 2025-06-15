@@ -13,46 +13,48 @@ block content
             include messages
     div(class='row')
         div(class='col-sm-1')
-            <i class="fas fa-temperature-high"></i>
+            i(class='fas fa-temperature-high')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='row')
-                        div(class='col-sm-2')
-                             div(class='form-check form-switch')
-                                input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1heater' checked=heaterTurn)
-                                label(class='custom-control-label' for='o2s1heater') Тепло (ON/OFF)
-                        div(class='col-sm-2')
-                            div(class='form-check form-switch')
-                                input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1holl' checked=hollTurn)
-                                label(class='form-check-label' for='o2s1holl') Холод (ON/OFF)
-                        div(class='col-sm-2')
+                        div(class='row')
+                            div(class='col-sm-3 d-flex justify-content-between')
+                                 div(class='form-check form-switch')
+                                    input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1heater' checked=heaterTurn)
+                                    label(class='custom-control-label' for='o2s1heater') Тепло (ON/OFF)
+                            div(class='col-sm-3 d-flex justify-content-between')
                                 div(class='form-check form-switch')
-                                    input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1water' checked=waterTurn)
-                                    label(class='form-check-label' for='o2s1water') Вода (ON/OFF)
-                        div(class='col-sm-2')
-                                div(class='form-check form-switch')
-                                    input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1irr' checked=irrTurn)
-                                    label(class='form-check-label' for='o2s1irr') Полив (ON/OFF)
-                        div(class='col-sm-2')
-                            div
-                                label(id='o2s1tl' for='o2s1t') Temp (0-30): #{temp}
-                                input(type='range' class='custom-range' min='0' max='30' value=temp id='o2s1t' onchange='selectRange2("o2s1tl", "o2s1t", "Temp (0-30): ")')
-                        div(class='col-sm-2')
-                            div
-                                label(id='o2s1dl' for='o2s1d') Delta (1-5): #{delta}
-                                input(type='range' class='custom-range' min='1' max='5' value=delta id='o2s1d' onchange='selectRange2("o2s1dl", "o2s1d", "Delta (1-5): ")')
+                                    input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1holl' checked=hollTurn)
+                                    label(class='form-check-label' for='o2s1holl') Холод (ON/OFF)
+
+                            div(class='col-sm-3 d-flex justify-content-between')
+                                    div(class='form-check form-switch')
+                                        input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1water' checked=waterTurn)
+                                        label(class='form-check-label' for='o2s1water') Вода (ON/OFF)
+                            div(class='col-sm-3 d-flex justify-content-between')
+                                    div(class='form-check form-switch')
+                                        input(type='checkbox' class='form-check-input' onclick='selectToggler2()' id='o2s1irr' checked=irrTurn)
+                                        label(class='form-check-label' for='o2s1irr') Полив (ON/OFF)
+                        div(class='row')
+                            div(class='col-md-4 d-flex justify-content-between')
+                                    label(id='o2s1tl' for='o2s1t') Temp (0-30): #{temp}
+                                    input(type='range' class='custom-range' min='0' max='30' value=temp id='o2s1t' onchange='selectRange2("o2s1tl", "o2s1t", "Temp (0-30): ")')
+                            div(class='col-md-4 d-flex justify-content-between')
+                                    label(id='o2s1dl' for='o2s1d') Delta (1-5): #{delta}
+                                    input(type='range' class='custom-range' min='1' max='5' value=delta id='o2s1d' onchange='selectRange2("o2s1dl", "o2s1d", "Delta (1-5): ")')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
-                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm' onclick='filterChart2("y")') Y
+                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm rounded-end rounded-pill' onclick='filterChart2("y")') Y
                         button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm' onclick='filterChart2("m")') M
                         button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm' onclick='filterChart2("w")') W
-                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm' onclick='filterChart2("d")') D
-                    canvas(id='lineChart')
+                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm rounded-start rounded-pill' onclick='filterChart2("d")') D
+                    div
+                        canvas(id='lineChart')
                     script(type="text/javascript").
                         filterChart2('d')
     div(class='row')
@@ -60,18 +62,21 @@ block content
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
-                    button(type='button' class='btn btn-info btn-rounded' data-toggle='collapse' data-target='#detail') Данные
-                    div(id='detail' class='collapse in' aria-expanded='true')
-                        table(class='table')
-                            thead
-                                tr
-                                    th(scope='col') TIME
-                                    th(scope='col') NAME
-                                    th(scope='col') DATA
-                            tbody
-                            each entry in entries.length ? entries : ['There are no values']
-                                tr
-                                    td #{entry.timestamp}
-                                    td #{entry.name}
-                                    td #{entry.room_value}
+                    button(type='button' class='btn btn-info rounded-pill' data-bs-toggle='collapse' data-bs-target='#detail' aria-expanded="false" aria-controls="detail") Данные
+                    div(id='detail' class='collapse')
+                        if (entries.length === 0)
+                            p(class="text-start") Нет данных
+                        else
+                            table(class='table')
+                                thead
+                                    tr
+                                        th(scope='col') TIME
+                                        th(scope='col') NAME
+                                        th(scope='col') DATA
+                                tbody
+                                each entry in entries
+                                    tr
+                                        td #{entry.timestamp}
+                                        td #{entry.name}
+                                        td #{entry.room_value}
 

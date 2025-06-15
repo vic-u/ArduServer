@@ -180,9 +180,7 @@ exports.filter2 = (req, res, next) => {
         console.log('filter2 set ' + dtype + ' ' + MAC2);
         DBSensor.getSensorDataByMacAndDate2(MAC2, dtype, (err, entries) => {
             const DATASET_EMPTY = {label: 'NO DATA', labels: [], data: []}
-            console.log(entries)
             if (entries === undefined) return res.status(200).json(DATASET_EMPTY)
-            console.log(entries + ' after')
             const dateTs = []
             const values = []
             let j = 0

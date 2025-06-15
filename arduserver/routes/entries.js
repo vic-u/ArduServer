@@ -1,6 +1,8 @@
 const User = require('../models/user')
 const DBSensor = require('../models/db').DBSensor
-
+const TITLE = '169 участок'
+const TEMP_DEFAULT = '25'
+const DELTA_DEFAULT = '2'
 
 exports.form = (req, res, next) => {
     //console.log('test2!')
@@ -15,37 +17,26 @@ exports.form = (req, res, next) => {
                 DBSensor.getLastCommand(mac, (err, entries) => {
                     if (err) return next(err)
                     let turn = 'OFF';
-                    let temp = '25';
-                    let delta = '2';
+                    let temp = TEMP_DEFAULT;
+                    let delta = DELTA_DEFAULT;
                     if (entries !== undefined) {
                         if (entries.turn === 'ON') turn = 'ON'
                         temp = entries.temp
                         delta = entries.delta
                     }
                     //получаем данные по сенсору
-                    DBSensor.getSensorDataByMAC(mac, (err, entries) => {
-                        if (entries === undefined) entries = []
-                        const arr = []
-                        const arr2 = []
-                        let label = `label: 'NO DATA'`;
-                        let j = 0;
-                        for (let i = entries.length - 1; i >=0 ; --i) {
-                            const e = entries[i];
-                            const dt = "'" + e.timestamp + "'";
-                            arr[j] = dt.toString()
-                            arr2[j] = e.value
-                            label = `label: '${e.name} ${e.mac}'`
-                            j++
-                        }
-                        let labels = 'labels:' + '[' + arr.toString() + ']'
-                        data = 'data:' + '[' + arr2.toString() + ']'
+                    DBSensor.getSensorDataByMacAndDate(mac, 'y', (err, entries) => {
                         if (err) return next(err)
-                        if (entries) {
-                            res.render('entries', {
-                                title: '169 участок', turn: (turn === 'ON'), temp: temp, delta: delta, entries: entries, authorized: req.session.authorized,
-                                dataset: `{ ${label}, ${labels}, ${data} }`
-                            })
-                        }
+                        if (entries === undefined) entries = []
+
+                        res.render('entries', {
+                            title: TITLE,
+                            turn: (turn === 'ON'),
+                            temp: temp,
+                            delta: delta,
+                            entries: entries,
+                            authorized: req.session.authorized,
+                        })
                     })
                 })
             }
