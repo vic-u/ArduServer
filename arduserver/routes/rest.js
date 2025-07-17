@@ -119,7 +119,7 @@ exports.sensor2 = (req, res, next) => {
     })
 
 }
-//rest. который вызывается при изменении настроек в клиенте для температуры и дельты
+//Rest, который вызывается при изменении настроек в клиенте для температуры и дельты
 exports.filter = (req, res, next) => {
     if (req.session.authorized !== true) return;
     User.getByMail(req.session.username, (err, user) => {
