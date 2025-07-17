@@ -13,11 +13,11 @@ block content
         div(class='col-1')
         div(class='col-md-4')
             form(action='/login' method='post')
-                div(class="form-group")
+                div(class="form-group mt-5")
                     label(for="InputEmail") Email address
-                    input(type="email", class="form-control rounded-pill", id="InputEmail", aria-describedby="emailHelp", placeholder="Enter email", name='user[mail]')
-                div(class="form-group")
+                    input(type="email", class="form-control rounded-pill mt-2", id="InputEmail", aria-describedby="emailHelp", placeholder="Enter email", name='user[mail]')
+                div(class="form-group mt-5")
                     label(for="InputPassword") Password
-                    input(type="password" class="form-control rounded-pill" id="InputPassword" placeholder="Password" name='user[pass]')
-                div(class="mt-3 d-flex justify-content-center")
+                    input(type="password" class="form-control rounded-pill mt-2" id="InputPassword" placeholder="Password" name='user[pass]')
+                div(class="mt-3 d-flex justify-content-center mt-5")
                     button(type="submit" class="btn btn-primary rounded-pill") Login

@@ -1,32 +1,32 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('snsrdt.sqllite');
-const snstbl = 'sensorsdata';
-const snstbl2 = 'sensorsdata2';
-const cmdtbl = 'commanddata';
-const cmdtbl2 = 'commanddata2';
-const usrtbl = 'userdata';
+const sqlite3 = require('sqlite3').verbose()
+const db = new sqlite3.Database('snsrdt.sqllite')
+const snstbl = 'sensorsdata'
+const snstbl2 = 'sensorsdata2'
+const cmdtbl = 'commanddata'
+const cmdtbl2 = 'commanddata2'
+const usrtbl = 'userdata'
 
 db.serialize(() => {
        let sql = `CREATE TABLE IF NOT EXISTS ${snstbl}
-    (
-        id
-        integer
-        primary
-        key,
-        mac
-        text,
-        name
-        text,
-        value
-        text,
-        timestamp
-        DATETIME
-        DEFAULT (
-        datetime
-               (
-        'now',
-        'localtime'
-               )))`
+       (
+           id
+           integer
+           primary
+           key,
+           mac
+           text,
+           name
+           text,
+           value
+           text,
+           timestamp
+           DATETIME
+           DEFAULT (
+           datetime
+                  (
+           'now',
+           'localtime'
+                  )))`
     db.run(sql, err => {
         if (err) console.log('db.serialize err: ' + err);
     });

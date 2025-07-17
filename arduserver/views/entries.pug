@@ -18,14 +18,14 @@ block content
             div(class='card')
                 div(class='card-body')
                     div(class='row')
-                        div(class='col-md-4 d-flex justify-content-between')
+                        div(class='col-md-4 d-flex justify-content-between mt-3')
                             div(class='form-check form-switch')
                                 input(type='checkbox' class='form-check-input' id='o1s1' onclick='selectToggler()' checked=turn)
                                 label(class='form-check-label' for='o1s1') Тепло (ON/OFF)
-                        div(class='col-md-4 d-flex justify-content-between')
+                        div(class='col-md-4 d-flex justify-content-between mt-3')
                             label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
                             input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')
-                        div(class='col-md-4 d-flex justify-content-between')
+                        div(class='col-md-4 d-flex justify-content-between mt-3')
                             label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
                             input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')
     div(class='row')

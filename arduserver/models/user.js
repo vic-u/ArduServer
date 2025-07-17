@@ -1,6 +1,5 @@
-const bcrypt = require('bcryptjs');
-const db = require('../models/db');
-const DBUser = require('../models/db').DBUser;
+const bcrypt = require('bcryptjs')
+const DBUser = require('../models/db').DBUser
 
 class User {
     constructor(obj) {
@@ -26,12 +25,11 @@ class User {
         if (this.id) {
             //this.update(cb);
         } else {
-            var obj = this;
+            const obj = this;
             this.hashPassword((err) => {
                 if (err) return cb(err);
-                DBUser.create(this, function (err, user) {
+                DBUser.create(this, function (err) {
                     if (err) return cb(err);
-                    const id = this.lastID;
                     obj.id = this.lastID;
                     cb(err);
                 });
