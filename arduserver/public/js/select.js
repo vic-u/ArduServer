@@ -11,6 +11,9 @@ selectRange = (labelId, elemId, msg) => {
     $('#' + labelId).text(msg + $('#' + elemId).val())
     selectToggler()
 }
+inputRange = (labelId, msg, value) => {
+    $('#' + labelId).text(msg + value)
+}
 selectToggler2 = () =>
     $.post("/sensor2",
         {

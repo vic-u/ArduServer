@@ -24,20 +24,28 @@ block content
                                 label(class='form-check-label' for='o1s1') Тепло (ON/OFF)
                         div(class='col-md-4 d-flex justify-content-between mt-3')
                             label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
-                            input(type='range' class='custom-range' min='0' max='30' value=temp id='o1s1t' onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")')
+                            input(type='range' class='sensor-form-range form-range' min='0' max='30' value=temp id='o1s1t'
+                                onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")'
+                                oninput='inputRange("o1s1tl", "Temp (0-30): ", this.value)')
                         div(class='col-md-4 d-flex justify-content-between mt-3')
                             label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
-                            input(type='range' class='custom-range' min='1' max='5' value=delta id='o1s1d' onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")')
+                            input(type='range' class='sensor-form-range form-range' min='1' max='5' value=delta id='o1s1d'
+                                onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")'
+                                oninput='inputRange("o1s1dl", "Delta (1-5): ", this.value)')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
                     div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
-                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm rounded-end rounded-pill' onclick='filterChart("y")') Y
-                        button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm' onclick='filterChart("m")') M
-                        button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm' onclick='filterChart("w")') W
-                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm rounded-start rounded-pill' onclick='filterChart("d")') D
+                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm rounded-end rounded-pill'
+                            onclick='filterChart("y")') Y
+                        button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm'
+                            onclick='filterChart("m")') M
+                        button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm'
+                            onclick='filterChart("w")') W
+                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm rounded-start rounded-pill'
+                            onclick='filterChart("d")') D
                     div
                         canvas(id='lineChart')
                     script(type="text/javascript").
@@ -47,7 +55,8 @@ block content
         div(class='col-sm-10')
             div(class='card')
                 div(class='card-body')
-                    button(type='button' class='btn btn-info rounded-pill' data-bs-toggle='collapse' data-bs-target='#detail' aria-expanded="false" aria-controls="detail") Данные
+                    button(type='button' class='btn btn-info rounded-pill' data-bs-toggle='collapse'
+                        data-bs-target='#detail' aria-expanded="false" aria-controls="detail") Данные
                     div(id="detail" class="collapse")
                         if (entries.length === 0)
                             p(class="text-start") Нет данных

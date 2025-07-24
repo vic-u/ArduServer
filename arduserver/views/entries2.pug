@@ -38,10 +38,15 @@ block content
                         div(class='row')
                             div(class='col-md-4 d-flex justify-content-between mt-3')
                                     label(id='o2s1tl' for='o2s1t') Temp (0-30): #{temp}
-                                    input(type='range' class='custom-range' min='0' max='30' value=temp id='o2s1t' onchange='selectRange2("o2s1tl", "o2s1t", "Temp (0-30): ")')
+                                    input(type='range' class='sensor-form-range form-range' min='0' max='30' value=temp id='o2s1t'
+                                        onchange='selectRange2("o2s1tl", "o2s1t", "Temp (0-30): ")'
+                                        oninput='inputRange("o2s1tl", "Temp (0-30): ", this.value)')
+
                             div(class='col-md-4 d-flex justify-content-between mt-3')
                                     label(id='o2s1dl' for='o2s1d') Delta (1-5): #{delta}
-                                    input(type='range' class='custom-range' min='1' max='5' value=delta id='o2s1d' onchange='selectRange2("o2s1dl", "o2s1d", "Delta (1-5): ")')
+                                    input(type='range' class='sensor-form-range form-range' min='1' max='5' value=delta id='o2s1d'
+                                        onchange='selectRange2("o2s1dl", "o2s1d", "Delta (1-5): ")'
+                                        oninput='inputRange("o2s1dl", "Delta (1-5): ", this.value)')
     div(class='row')
         div(class='col-sm-1')
         div(class='col-sm-10')
