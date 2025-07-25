@@ -2,7 +2,9 @@ if (authorized)
     div
         nav(class='navbar navbar-expand-md navbar-dark bg-dark')
             a(class="navbar-brand", href="#")
-                <img src="/images/avg.png" width="30" height="30" class="d-inline-block align-top" alt="">AVG
+                div(class="d-flex align-items-center")
+                    img(src="/images/avg.png", class='mx-3', width="30", height="30", alt="")
+                    span(class='fs-2') Контроль
             button(class="navbar-toggler", type="button", data-bs-toggle="collapse", data-bs-target="#navbar1")
                 span(class="navbar-toggler-icon")
             div(class="navbar-collapse collapse", id="navbar1", style)

@@ -4,17 +4,13 @@ block content
     script(src='/js/chart.js')
     script(src='/js/select.js')
     div(class='row')
-        div(class='col-1')
         div(class='col-')
-            h1 #{title}
+            h1(class='fs-1') #{title}
     div(class='row')
-        div(class='col-1')
         div(class='col-')
             include messages
     div(class='row')
-        div(class='col-sm-1')
-            i(class='fas fa-temperature-high')
-        div(class='col-sm-10')
+        div(class='col-')
             div(class='card')
                 div(class='card-body')
                     div(class='row')
@@ -58,8 +54,7 @@ block content
                                     onchange='selectRange2("o2s1dl", "o2s1d", "Delta (1-5): ")'
                                     oninput='inputRange("o2s1dl", "Delta (1-5): ", this.value)')
     div(class='row')
-        div(class='col-sm-1')
-        div(class='col-sm-10')
+        div(class='col-')
             div(class='card')
                 div(class='card-body')
                     div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
@@ -72,8 +67,7 @@ block content
                     script(type="text/javascript").
                         filterChart2('d')
     div(class='row')
-        div(class='col-sm-1')
-        div(class='col-sm-10')
+        div(class='col-')
             div(class='card')
                 div(class='card-body')
                     button(type='button' class='btn btn-info rounded-pill' data-bs-toggle='collapse' data-bs-target='#detail' aria-expanded="false" aria-controls="detail") Данные
