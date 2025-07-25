@@ -1,9 +1,4 @@
 var myLineChart = undefined
-// $(document).on('input change', '#o1s1d', function (event) {
-//     console.log('delta click')
-//     $('#o1s1dl').text('Delta (1-5): ' + $('#o1s1d').val())
-//     $.post("/sensor", { turn: $('#o1s1').is(':checked'), temp: $('#o1s1t').val(), delta: $('#o1s1d').val() })
-// })
 filterChart = (dtype) => $.get('/filter/' + dtype, (data) => drawChart(data))
 filterChart2 = (dtype) => $.get('/filter2/' + dtype, (data) => drawChart(data))
 
