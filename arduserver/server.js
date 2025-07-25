@@ -8,7 +8,7 @@ const register = require('./routes/register')
 const login = require('./routes/login')
 const entries = require('./routes/entries')
 const entries2 = require('./routes/entries2')
-const rest = require('./routes/rest')
+const filter = require('./routes/filter')
 const sensor = require('./routes/sensor')
 const entry = require('./routes/entry')
 
@@ -46,8 +46,8 @@ app.get('/entries2', entries2.form)
 app.post('/sensor', sensor.sensor) //переключение фильтра данных на форме
 app.post('/sensor2', sensor.sensor2) //переключение фильтра данных на форме
 
-app.get('/filter/:dtype', rest.filter)
-app.get('/filter2/:dtype', rest.filter2)
+app.get('/filter/:dtype', filter.filter)
+app.get('/filter2/:dtype', filter.filter2)
 
 app.get('/entry/:dt', entry.entry) // приходит с датчика по модему
 app.get('/entry2/:dt', entry.entry2) // приходит с датчиков по модему

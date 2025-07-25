@@ -58,10 +58,14 @@ block content
             div(class='card')
                 div(class='card-body')
                     div(class='btn-group btn-group-sm' role='group' aria-label='buttons')
-                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm rounded-end rounded-pill' onclick='filterChart2("y")') Y
-                        button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm' onclick='filterChart2("m")') M
-                        button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm' onclick='filterChart2("w")') W
-                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm rounded-start rounded-pill' onclick='filterChart2("d")') D
+                        button(type='button' id='yearchart' class='btn btn-unique btn-pink btn-sm rounded-end rounded-pill'
+                            onclick='filterChart2("y")') Y
+                        button(type='button' id='monthchart' class='btn btn-unique btn-green btn-sm'
+                            onclick='filterChart2("m")') M
+                        button(type='button' id='weakchart' class='btn btn-unique btn-amber btn-sm'
+                            onclick='filterChart2("w")') W
+                        button(type='button' id='daychart' class='btn btn-unique btn-red btn-sm rounded-start rounded-pill'
+                            onclick='filterChart2("d")') D
                     div
                         canvas(id='lineChart')
                     script(type="text/javascript").
@@ -84,7 +88,7 @@ block content
                                 tbody
                                 each entry in entries
                                     tr
-                                        td #{entry.timestamp}
+                                        td #{entry.fd}
                                         td #{entry.name}
                                         td #{entry.room_value}
 

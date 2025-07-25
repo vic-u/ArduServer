@@ -170,31 +170,31 @@ class DBSensor {
 
     static getSensorDataByMacAndDate(mac, dtype, cb) {
         if (dtype === "d") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
         }
         if (dtype === "w") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
         }
         if (dtype === "m") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
         }
         if (dtype === "y") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
         }
     }
 
     static getSensorDataByMacAndDate2(mac, dtype, cb) {
         if (dtype === "d") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
         }
         if (dtype === "w") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
         }
         if (dtype === "m") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
         }
         if (dtype === "y") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
+            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
         }
     }
 
