@@ -20,16 +20,20 @@ block content
                     div(class='row')
                         div(class='col-md-4 d-flex justify-content-between mt-3')
                             div(class='form-check form-switch')
-                                input(type='checkbox' class='form-check-input' id='o1s1' onclick='selectToggler()' checked=turn)
+                                input(type='checkbox' class='form-check-input' id='o1s1'
+                                    onclick='selectToggler()'
+                                    checked=turn)
                                 label(class='form-check-label' for='o1s1') Тепло (ON/OFF)
-                        div(class='col-md-4 d-flex justify-content-between mt-3')
+                        div(class='col-md-4 d-flex justify-content-between mt-3 pe-3')
                             label(id='o1s1tl' for='o1s1t') Temp (0-30): #{temp}
-                            input(type='range' class='sensor-form-range form-range' min='0' max='30' value=temp id='o1s1t'
+                            input(type='range' class='sensor-form-range form-range'
+                                min='0' max='30' value=temp id='o1s1t'
                                 onchange='selectRange("o1s1tl", "o1s1t", "Temp (0-30): ")'
                                 oninput='inputRange("o1s1tl", "Temp (0-30): ", this.value)')
-                        div(class='col-md-4 d-flex justify-content-between mt-3')
+                        div(class='col-md-4 d-flex justify-content-between mt-3 pe-3')
                             label(id='o1s1dl' for='o1s1d') Delta (1-5): #{delta}
-                            input(type='range' class='sensor-form-range form-range' min='1' max='5' value=delta id='o1s1d'
+                            input(type='range' class='sensor-form-range form-range'
+                                min='1' max='5' value=delta id='o1s1d'
                                 onchange='selectRange("o1s1dl", "o1s1d", "Delta (1-5): ")'
                                 oninput='inputRange("o1s1dl", "Delta (1-5): ", this.value)')
     div(class='row')
