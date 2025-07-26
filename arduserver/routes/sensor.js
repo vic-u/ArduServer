@@ -6,7 +6,7 @@ const MAC2 = '26FD52AD4E94'
 //Rest, который вызывается при изменении настроек в клиенте для температуры и дельты
 exports.sensor = (req, res, next) => {
     console.log('sensor')
-    if (req.session.authorized !== true) return next('not authorized')
+    if (req.session.authorized !== true) return next(new Error('Not authorized'))
     User.getByMail(req.session.username, (err, user) => {
         console.log('toggle switch')
         const turn = req.body.turn === 'false' ? 'OFF' : 'ON'//off sensor

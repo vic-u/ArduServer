@@ -1,11 +1,11 @@
 const User = require('../models/user')
 const DBSensor = require('../models/db').DBSensor
+const Sensors = require('../common').Sensors
 const TITLE = '169 участок'
 const TEMP_DEFAULT = '25'
 const DELTA_DEFAULT = '2'
 
 exports.form = (req, res, next) => {
-    //console.log('test2!')
     if (!req.session.authorized) {
         res.error('Sorry, invalid credentials!')
         res.redirect('/')
@@ -13,7 +13,7 @@ exports.form = (req, res, next) => {
         User.getByMail(req.session.username, (err, user) => {
             if (err) return next(err)
             if (user) {
-                const mac = user.mac;
+                const mac = Sensors.S1.mac
                 DBSensor.getLastCommand(mac, (err, entries) => {
                     if (err) return next(err)
                     let turn = 'OFF';

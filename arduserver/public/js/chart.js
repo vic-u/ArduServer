@@ -1,11 +1,9 @@
-var myLineChart = undefined
-filterChart = (dtype) => $.get('/filter/' + dtype, (data) => drawChart(data))
-filterChart2 = (dtype) => $.get('/filter2/' + dtype, (data) => drawChart(data))
+let myLineChart = undefined
+filterChart = (dType) => $.get('/filter/' + dType, (data) => drawChart(data))
+filterChart2 = (dType) => $.get('/filter2/' + dType, (data) => drawChart(data))
 
 function drawChart(dataset) {
     const ctxL = document.getElementById('lineChart').getContext('2d')
-    console.log(ctxL);
-    //ctxL.canvas.height = 600;
     if (myLineChart !== undefined) myLineChart.destroy()
     myLineChart = new Chart(ctxL, {
         type: 'line',

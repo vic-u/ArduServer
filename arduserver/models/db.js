@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('snsrdt.sqllite')
+const Sensors = require('../common').Sensors
 const snstbl = 'sensorsdata'
 const snstbl2 = 'sensorsdata2'
 const cmdtbl = 'commanddata'
@@ -7,26 +8,26 @@ const cmdtbl2 = 'commanddata2'
 const usrtbl = 'userdata'
 
 db.serialize(() => {
-       let sql = `CREATE TABLE IF NOT EXISTS ${snstbl}
-       (
-           id
-           integer
-           primary
-           key,
-           mac
-           text,
-           name
-           text,
-           value
-           text,
-           timestamp
-           DATETIME
-           DEFAULT (
-           datetime
-                  (
-           'now',
-           'localtime'
-                  )))`
+    let sql = `CREATE TABLE IF NOT EXISTS ${snstbl}
+    (
+        id
+        integer
+        primary
+        key,
+        mac
+        text,
+        name
+        text,
+        value
+        text,
+        timestamp
+        DATETIME
+        DEFAULT (
+        datetime
+               (
+        'now',
+        'localtime'
+               )))`
     db.run(sql, err => {
         if (err) console.log('db.serialize err: ' + err);
     });
@@ -156,46 +157,33 @@ class DBSensor {
         db.get(`SELECT * FROM ${snstbl2} WHERE strftime('%Y-%m-%d-%H', timestamp) = ? AND mac = ?`, dt, data.mac, cb);
     }
 
-    static getSensorDataByMAC(mac, cb) {
-        db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
-    }
+    // static getSensorDataByMAC(mac, cb) {
+    //     db.all(`SELECT id, mac, name, value,  strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
+    // }
 
-    static getSensorDataByMAC2(mac, cb) {
-        db.all(`SELECT id, mac, name, box_value,  room_value, strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
-    }
+    // static getSensorDataByMAC2(mac, cb) {
+    //     db.all(`SELECT id, mac, name, box_value,  room_value, strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE mac = ? ORDER BY timestamp DESC`, mac, cb);
+    // }
 
-    static getSensorDataByMAC2ForYear(mac, cb) {
-        db.all(`SELECT id, mac, name, box_value,  room_value, strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE timestamp >= date('now','-12 months') ORDER BY timestamp DESC`, mac, cb);
-    }
+    // static getSensorDataByMAC2ForYear(mac, cb) {
+    //     db.all(`SELECT id, mac, name, box_value,  room_value, strftime('%Y-%m-%d-%H', timestamp) as timestamp  FROM ${snstbl2} WHERE timestamp >= date('now','-12 months') ORDER BY timestamp DESC`, mac, cb);
+    // }
 
-    static getSensorDataByMacAndDate(mac, dtype, cb) {
-        if (dtype === "d") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
-        }
-        if (dtype === "w") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
-        }
-        if (dtype === "m") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
-        }
-        if (dtype === "y") {
-            db.all(`SELECT id, mac, name, value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
-        }
+    static dateOffset(offset) {
+        return offset === 'd' ? "-1 day" : offset === 'w' ? "-7 day" : offset === 'm' ? "-1 month" : offset === 'y' ? "-1 year" : ""
     }
-
-    static getSensorDataByMacAndDate2(mac, dtype, cb) {
-        if (dtype === "d") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 day') ORDER BY timestamp DESC`, mac, cb);
-        }
-        if (dtype === "w") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-7 day') ORDER BY timestamp DESC`, mac, cb);
-        }
-        if (dtype === "m") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 month') ORDER BY timestamp DESC`, mac, cb);
-        }
-        if (dtype === "y") {
-            db.all(`SELECT id, mac, name, box_value,  room_value,  strftime('%m-%d-%H', timestamp) as fd  FROM ${snstbl2} WHERE mac = ? AND timestamp >= date('now','-1 year') ORDER BY timestamp DESC`, mac, cb);
-        }
+    static sensorTableNameFromName(name) {
+        return name === Sensors.S2.mac ? Sensors.S2.valueTable : Sensors.S1.valueTable
+    }
+    static sensorValuesColumnNameFromName(name) {
+        return name === Sensors.S2.mac ? Sensors.S2.valueColumn : Sensors.S1.valueColumn
+    }
+    static getSensorDataByMacAndDate(mac, dType, cb) {
+        const selectPart = "SELECT id, mac, name, " + this.sensorValuesColumnNameFromName(mac) +
+            " as value,  strftime('%m-%d-%H', timestamp) as fd  FROM " + this.sensorTableNameFromName(mac)
+        const wherePart = `WHERE mac = ? AND timestamp >= date('now','${DBSensor.dateOffset(dType)}')`
+        const querySensorValue = `${selectPart} ${wherePart} ORDER BY timestamp DESC`
+        db.all(querySensorValue, mac, cb);
     }
 
     /***получаем данные с датчика и сохраняем, если за текущий час еще не было данных**/
@@ -264,7 +252,7 @@ class DBSensor {
                 db.run(sql, data.mac, data.name, entry.turn_heater, entry.turn_holl, entry.turn_water, entry.turn_irr, data.temp, data.delta, cb)
             } else {
                 //пришла команда
-               // console.log('get modem command')
+                // console.log('get modem command')
                 if (data.heaterTurn === '') data.heaterTurn = 'OFF' // с модема приходит обычная команда, тогда часть пустое, но температуру и дельту могли переключить
                 if (data.hollTurn === '') data.hollTurn = 'OFF'
                 if (data.waterTurn === '') data.waterTurn = 'OFF'
