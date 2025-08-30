@@ -2,6 +2,8 @@ const DBSensor = require('../models/db').DBSensor
 const User = require('../models/user')
 //const MAC = '26FD52AD4E93'
 const MAC2 = '26FD52AD4E94'
+const NAME = 'o1s1';
+const NAME2 = 'o2s1';
 
 //Rest, который вызывается при изменении настроек в клиенте для температуры и дельты
 exports.sensor = (req, res, next) => {
@@ -12,7 +14,7 @@ exports.sensor = (req, res, next) => {
         const turn = req.body.turn === 'false' ? 'OFF' : 'ON'//off sensor
         DBSensor.setCommand({
             mac: user.mac,
-            name: 'o1s1',
+            name: NAME,
             turn: turn,
             temp: req.body.temp,
             delta: req.body.delta
@@ -20,7 +22,7 @@ exports.sensor = (req, res, next) => {
             if (err) return next(err);
             console.log('sensor is here: ' + req.body.turn + "  " + req.body.temp + " " + req.body.delta)
             res.status(200).send()
-            return next()
+            //return next() //кажется лишним
         })
     })
 }
@@ -33,7 +35,7 @@ exports.sensor2 = (req, res, next) => {
         // console.log(req.body)
         DBSensor.setCommand2({
             mac: MAC2,
-            name: 'o2s1',
+            name: NAME2,
             heaterTurn: req.body.heaterTurn === 'false' ? 'OFF' : 'ON',
             hollTurn: req.body.hollTurn === 'false' ? 'OFF' : 'ON',
             waterTurn: req.body.waterTurn === 'false' ? 'OFF' : 'ON',

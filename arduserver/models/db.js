@@ -62,9 +62,9 @@ db.serialize(() => {
     sql = `CREATE TABLE IF NOT EXISTS ${cmdtbl}
            (
                id
-               integer
-               primary
-               key,
+               INTEGER
+               PRIMARY
+               KEY,
                mac,
                name,
                turn,
@@ -172,12 +172,19 @@ class DBSensor {
     static dateOffset(offset) {
         return offset === 'd' ? "-1 day" : offset === 'w' ? "-7 day" : offset === 'm' ? "-1 month" : offset === 'y' ? "-1 year" : ""
     }
+
     static sensorTableNameFromName(name) {
         return name === Sensors.S2.mac ? Sensors.S2.valueTable : Sensors.S1.valueTable
     }
+
+    static commandTableNameFromName(name) {
+        return name === Sensors.S2.mac ? Sensors.S2.commandTable : Sensors.S1.commandTable
+    }
+
     static sensorValuesColumnNameFromName(name) {
         return name === Sensors.S2.mac ? Sensors.S2.valueColumn : Sensors.S1.valueColumn
     }
+
     static getSensorDataByMacAndDate(mac, dType, cb) {
         const selectPart = "SELECT id, mac, name, " + this.sensorValuesColumnNameFromName(mac) +
             " as value,  strftime('%m-%d-%H', timestamp) as fd  FROM " + this.sensorTableNameFromName(mac)
@@ -212,22 +219,33 @@ class DBSensor {
     }
 
     static getLastCommand(mac, cb) {
-        db.get(`SELECT * FROM ${cmdtbl} WHERE mac = ? ORDER BY id DESC LIMIT 1;`, mac, cb);
+        db.get(`SELECT * FROM ${this.commandTableNameFromName(mac)} WHERE mac = ? ORDER BY id DESC LIMIT 1;`, mac, cb);
     }
 
     static getLastCommand2(mac, cb) {
         db.get(`SELECT * FROM ${cmdtbl2} WHERE mac = ? ORDER BY id DESC LIMIT 1;`, mac, cb);
     }
 
-    static setCommand(data, cb) {
-        if (data.turn === '') {
-            //console.log('Command: 1')
-            return cb();
-        }
-        //console.log('Command: 2')
+    static setMobileCommand({mac, name, turn, heaterTurn, waterTurn, temp, delta}, cb) {
+        const insertPart = 'INSERT ' + 'INTO ' + this.commandTableNameFromName(mac)
+        const columnPart = '(mac, name, ' + (mac === Sensors.S1.mac ?
+            'turn' :
+            'turn_heater, turn_holl, turn_water, turn_irr') + ', temp, delta)'
+        const valuePart = 'VALUES ' + (mac === Sensors.S1.mac ?
+            '(?, ?, ?, ?, ?)': '(?, ?, ?, ?, ?, ?, ?, ?)')
+        const updateCommandQuery = `${insertPart} ${columnPart} ${valuePart}`
+        console.log(updateCommandQuery)
+        console.log(turn, heaterTurn,waterTurn)
+        mac === Sensors.S1.mac ?
+            db.run(updateCommandQuery, mac, name, turn, temp, delta, cb) :
+            db.run(updateCommandQuery, mac, name, heaterTurn, 'OFF', waterTurn, 'OFF', temp, delta, cb)
+    }
+
+    static setCommand({mac, name, turn, temp, delta}, cb) {
+        if (turn === '') return cb()
         const sql = `INSERT INTO ${cmdtbl}(mac, name, turn, temp, delta)
-                     VALUES (?, ?, ?, ?, ?)`;
-        db.run(sql, data.mac, data.name, data.turn, data.temp, data.delta, cb);
+                     VALUES (?, ?, ?, ?, ?)`
+        db.run(sql, mac, name, turn, temp, delta, cb)
     }
 
     static setCommand2(data, cb) {

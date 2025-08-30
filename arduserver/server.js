@@ -11,6 +11,8 @@ const entries2 = require('./routes/entries2')
 const filter = require('./routes/filter')
 const sensor = require('./routes/sensor')
 const entry = require('./routes/entry')
+const mobile = require("./routes/mobile")
+const mobile2 = require("./routes/mobile2")
 
 const app = express();
 app.set('views', path.join(__dirname, 'views'))
@@ -45,6 +47,14 @@ app.get('/entries2', entries2.form)
 
 app.post('/sensor', sensor.sensor) //переключение фильтра данных на форме
 app.post('/sensor2', sensor.sensor2) //переключение фильтра данных на форме
+
+app.post('/mobileData', mobile.setMobileData)
+app.get('/mobileData', mobile.getMobileData)
+app.get('/mobileSensorArray/:type', mobile.getMobileSensorArray)
+
+app.post('/mobileData2', mobile2.setMobileData)
+app.get('/mobileData2', mobile2.getMobileData)
+app.get('/mobileSensorArray2/:type', mobile2.getMobileSensorArray)
 
 app.get('/filter/:dtype', filter.filter)
 app.get('/filter2/:dtype', filter.filter2)

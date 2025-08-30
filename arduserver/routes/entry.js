@@ -3,17 +3,25 @@ const PARAMS_COUNT = 7
 const PARAMS_COUNT_2 = 11
 const MAC = '26FD52AD4E93'
 const MAC_2 = '26FD52AD4E94'
+const Args = {
+    MAC:    1,
+    NAME:   2,
+    VALUE:  3,
+    TURN:   4,
+    TEMP:   5,
+    DELTA:  6
+}
 // Ресты, которые вызывает ардуино, чтобы передать свои данные и получить команды с фронта приложения
 entry = (req, res, next) => {
     const data = req.params.dt
     //=26FD52AD4E93=o1s1=24.22==25=2 //arr2 - sensor id
     const arr = data.toString().replace(/\s+/g, '').split("=")
     if (arr.length !== PARAMS_COUNT) return next('wrong arguments')
-    if (arr[1] !== MAC) return next('wrong MAC ADDRESS')
+    if (arr[Args.MAC] !== MAC) return next('wrong MAC ADDRESS')
     DBSensor.setNewDataForLastHour({//выставит данные по температуре, только если их не было в течении последнего часа
             mac: MAC,
-            name: arr[2],
-            value: arr[3]
+            name: arr[Args.NAME],
+            value: arr[Args.VALUE],
         },
         (err) => {
             if (err) return next(err)
@@ -21,10 +29,10 @@ entry = (req, res, next) => {
             //если команда была дана через модем, то ее тоже выставим
             DBSensor.setCommand({
                 mac: MAC,
-                name: arr[2],
-                turn: arr[4],
-                temp: arr[5],
-                delta: arr[6]
+                name: arr[Args.NAME],
+                turn: arr[Args.TURN],
+                temp: arr[Args.TEMP],
+                delta: arr[Args.DELTA]
             }, (err) => {
                 if (err) return next(err)
                 //  console.log('Fetching:3')
